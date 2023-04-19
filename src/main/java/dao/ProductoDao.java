@@ -52,7 +52,8 @@ public class ProductoDao implements Repositorio<Producto, Integer> {
 					rs.getString("categoria"),
 					rs.getString("descripcion"),
 					rs.getString("foto"),
-					rs.getInt("stock"));
+					rs.getInt("stock"),
+					rs.getInt("id_proveedor"));
 			
 			ps.close();
 			connection.close();
@@ -90,7 +91,8 @@ public class ProductoDao implements Repositorio<Producto, Integer> {
 					rs.getString("categoria"),
 					rs.getString("descripcion"),
 					rs.getString("foto"),
-					rs.getInt("stock"));
+					rs.getInt("stock"),
+					rs.getInt("id_proveedor"));
 			
 			productos.add(producto);
 		}
@@ -130,27 +132,33 @@ public class ProductoDao implements Repositorio<Producto, Integer> {
 			
 			query += "nombre=\'" + productoNuevo.getNombre() +"\', ";
 		}
-		//Numero_socio
+		//Precio
 		if ( !(productoActual.getPrecio() == productoNuevo.getPrecio())); {
 			
-			query += "num_socio=\'" + productoNuevo.getPrecio()+"\', ";
+			query += "precio=\'" + productoNuevo.getPrecio()+"\', ";
 		}
 		
-		//Direccion
+		//Categoria
 		if ( !productoActual.getCategoria().equals(productoNuevo.getCategoria())); {
 			
-			query += "direccion=\'" + productoNuevo.getCategoria()+"\', ";
+			query += "categoria=\'" + productoNuevo.getCategoria()+"\', ";
 		}
 		
-		//telefono
+		//descripcion
 		if ( !productoActual.getDescripcion().equals(productoNuevo.getDescripcion())); {
 			
-			query += "telefono=\'" + productoNuevo.getDescripcion()+"\', ";
+			query += "descripcion=\'" + productoNuevo.getDescripcion()+"\', ";
 		}
-		//email
+		//stock
 		if ( !(productoActual.getStock() == productoNuevo.getStock())); {
 			
-			query += "email=\'" + productoNuevo.getStock()+"\', ";
+			query += "stock=\'" + productoNuevo.getStock()+"\', ";
+		}
+		
+		//Id_proveedor
+		if ( !(productoActual.getId_proveedor() == productoNuevo.getId_proveedor())); {
+			
+			query += "id_proveedor=\'" + productoNuevo.getStock()+"\', ";
 		}
 		
 		
