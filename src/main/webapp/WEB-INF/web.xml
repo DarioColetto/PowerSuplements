@@ -10,7 +10,11 @@
     <servlet-name>ProductoController</servlet-name>
     <url-pattern>/ProductoController</url-pattern>
   </servlet-mapping>
+<<<<<<< HEAD
   <display-name>PowerSuplements</display-name>
+=======
+  <display-name>ProyectoFP2</display-name>
+>>>>>>> 6bb8582c47aeabb1c1bace61d6c204ff7cba774a
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>
