@@ -1,22 +1,7 @@
-let producto1 = {
-    id_producto: 1,
-    nombre: "proteina",
-    categoria: "proteina",
-    precio: 30.0,
-    descripcion: "Mucha prote",
-    foto: "link",
-    stock: 34
-};
+import { Producto } from "../../models/Producto";
 
-let producto2 = {
-    id_producto: 2,
-    nombre: "BArra",
-    categoria: "Barra",
-    precio: 30.0,
-    descripcion: "Barrita",
-    foto: "link",
-    stock: 22
-};
+let producto1 = new Producto(1,"Whey Protein", "proteina", 30.0, "Mucha Prote", 34, "link")
+let producto2 = new Producto(2, "Barra Cereal", "Barra", 22.5, "Barrita rica", 22, "link")
 
 let productos = [producto1, producto2];
 
