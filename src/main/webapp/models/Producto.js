@@ -1,4 +1,4 @@
-export class Producto{
+export class Producto {
 
     id_producto;
     nombre;
@@ -6,7 +6,6 @@ export class Producto{
     precio;
     proveedor;
     descripcion;
-    stock;
     foto;
 
 

@@ -1,4 +1,4 @@
-class Cliente{
+export class Cliente{
 
     id_cliente;
     nombre;
