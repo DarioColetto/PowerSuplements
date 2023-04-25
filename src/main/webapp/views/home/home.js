@@ -16,4 +16,4 @@ async function getData(){
   
 }
 
-export {getData}
+export {getData};

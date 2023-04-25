@@ -3,9 +3,8 @@ import { Producto } from "../../models/Producto.js";
 
 let productos= []
 
+/*
 const url = 'http://localhost:8080/PowerSuplements/producto';
-//let url_complete = url+'/productos/getAll';
-
 
 fetch(url, {
     method: 'GET',
@@ -16,7 +15,7 @@ fetch(url, {
         console.log(productos)}  )
     .catch(error => console.error('Error:', error));
 
-
+*/
 
 function productosView() {
 

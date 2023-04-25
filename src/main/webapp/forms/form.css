@@ -31,3 +31,15 @@ legend{
     margin: 4px;
 
 }
+
+#boton-crear{
+
+    background-color: #08e600;
+    padding: 5px;    
+}
+
+#boton-reset{
+
+    background-color: #ff8800;
+    padding: 5px;    
+}

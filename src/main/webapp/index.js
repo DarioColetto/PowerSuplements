@@ -1,19 +1,42 @@
-import { productosView} from "./views/prodcutos_view/productos_view.js"
-import { getData } from "./views/home/home.js";
+import { Router } from "./router.js";
+
+Router()
+
+//import { productosView} from "./views/prodcutos_view/productos_view.js"
+//import { getData } from "./views/home/home.js";
+//import { table } from "./views/prodcutos_view/prueba.js";
+
+/*
 
 const anchorProductos = document.getElementById('Productos');
 
+let myTable;
 
-getData()
+
 //let section = document.getElementById('section');
-
-
 
 function changeSection(){
     
     let section = document.getElementById('section');
-    section.replaceWith(productosView());
+    
+    section.replaceWith(myTable);
+    
+
+    //section.replaceWith(productosView());
     
  }
 
-anchorProductos.addEventListener('click', changeSection)
+anchorProductos.addEventListener('click', function(event){
+
+    event.preventDefault()
+    this.setAttribute('href', "/PowerSuplements/producto")
+    history.pushState(null, null, "/PowerSuplements/producto")
+
+    changeSection();
+})
+
+getData()
+
+*/
+
+
