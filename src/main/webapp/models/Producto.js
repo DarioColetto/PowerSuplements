@@ -8,7 +8,8 @@ export class Producto {
     descripcion;
     foto;
 
-
+    
+/*
     constructor(id_producto, nombre, cateoria, precio, proveedor, descripcion, stock, foto){
 
         this.id_producto = id_producto;
@@ -22,7 +23,7 @@ export class Producto {
         
     }
 
-
+*/
 
 }
 

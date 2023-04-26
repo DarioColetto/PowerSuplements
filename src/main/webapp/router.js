@@ -1,5 +1,5 @@
 import { VentaComponent } from "./components/venta-component.js";
-import { ProductoComponent } from "./components/producto-component.js";
+import { ProductoComponent } from "./components/producto-component/producto-component.js";
 import { ClienteComponent } from "./components/cliente-component.js";
 import { ProveedorComponent } from "./components/proveedor-component.js";
 import { HomeComponent } from "./components/home-component.js";
@@ -7,14 +7,19 @@ import { HomeComponent } from "./components/home-component.js";
 
 export const Router = () =>{
 
+  
+
   const routes = [
     { path: '/', component: HomeComponent },
-    { path: '/ventas', component: VentaComponent },
-    { path: '/productos', component: ProductoComponent  },
-    { path: '/clientes', component: ClienteComponent  },
-    { path: '/proveedores', component: ProveedorComponent },
+    { path: '/PowerSuplements', component: HomeComponent },
+    { path: '/PowerSuplements/ventas', component: VentaComponent },
+    { path: '/PowerSuplements/productos', component: ProductoComponent  },
+    { path: '/PowerSuplements/clientes', component: ClienteComponent  },
+    { path: '/PowerSuplements/proveedores', component: ProveedorComponent },
   ];
   
+
+
   function getCurrentRoute() {
     const path = window.location.pathname;
     return routes.find(route => route.path === path) || routes[0];
@@ -41,7 +46,9 @@ export const Router = () =>{
       link.addEventListener('click', (event) => {
         event.preventDefault();
         const path = event.target.getAttribute('href');
+        
         navigateTo(path);
+        
       });
     }
   

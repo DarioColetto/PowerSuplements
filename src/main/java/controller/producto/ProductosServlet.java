@@ -1,4 +1,4 @@
-package controller;
+package controller.producto;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -14,15 +14,15 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet(
 		name = "ProductoServlet",
-		description = "Controller of Producto Http request methods",
-		urlPatterns = {"/producto"})
-public class ProductoController extends HttpServlet {
+		description = "Get all Prodcutos",
+		urlPatterns = {"/ProductoServlet"})
+public class ProductosServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * Default constructor. 
      */
-    public ProductoController() {
+    public ProductosServlet() {
         // TODO Auto-generated constructor stub
     }
 

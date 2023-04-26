@@ -1,4 +1,4 @@
-package controller;
+package controller.proveedor;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -8,15 +8,15 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Servlet implementation class VentaController
+ * Servlet implementation class ProovedorController
  */
-public class VentaController extends HttpServlet {
+public class ProovedorServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public VentaController() {
+    public ProovedorServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

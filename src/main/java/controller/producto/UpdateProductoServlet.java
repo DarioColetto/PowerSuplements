@@ -1,4 +1,4 @@
-package controller;
+package controller.producto;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -8,15 +8,19 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Servlet implementation class ProovedorController
+ * Servlet implementation class UpdateProductoServlet
  */
-public class ProovedorController extends HttpServlet {
+@WebServlet(
+			name = "UpdateProductosServlet",
+			description = "Update one Prodcutos",
+			urlPatterns = {"/updateproducto"})
+public class UpdateProductoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProovedorController() {
+    public UpdateProductoServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
