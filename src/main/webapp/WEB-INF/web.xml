@@ -1,16 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:web="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd http://xmlns.jcp.org/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="5.0">
-  <servlet>
-    <description></description>
-    <display-name>UpdateProductoServlet</display-name>
-    <servlet-name>UpdateProductoServlet</servlet-name>
-    <servlet-class>controller.producto.UpdateProductoServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>UpdateProductoServlet</servlet-name>
-    <url-pattern>/UpdateProductoServlet</url-pattern>
-  </servlet-mapping>
-  <display-name>PowerSuplements</display-name>
+  
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>
@@ -19,14 +9,15 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  
   <servlet>
     <description>Get all Prodcutos</description>
     <servlet-name>ProductoServlet</servlet-name>
-    <servlet-class>controller.producto.ProductosServlet</servlet-class>
+    <servlet-class>controller.producto.Productos</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>ProductoServlet</servlet-name>
-    <url-pattern>/ProductoServlet</url-pattern>
+    <url-pattern>/Producto/*</url-pattern>
   </servlet-mapping>
   
   <servlet>
@@ -38,6 +29,16 @@
   <servlet-mapping>
     <servlet-name>ClienteServlet</servlet-name>
     <url-pattern>/clientes/*</url-pattern>
-  </servlet-mapping>
+  </servlet-mapping> 
   
+    <servlet>
+    <description></description>
+    <display-name>ProveedorServlet</display-name>
+    <servlet-name>ProveedorServlet</servlet-name>
+    <servlet-class>controller.cliente.Clientes</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProveedorServlet</servlet-name>
+    <url-pattern>/proveedores/*</url-pattern>
+  </servlet-mapping>  
 </web-app>

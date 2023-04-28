@@ -17,12 +17,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import model.Cliente;
 
 /**
- * Servlet implementation class ClienteServlet2
+ * Servlet implementation class Cliente
  */
 @WebServlet(name = "ClienteServlet", description = "Get all Clientes", urlPatterns = "/clientes/*"
 
 )
-public class Clientes extends HttpServlet {
+public class ClienteServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
@@ -44,25 +44,44 @@ public class Clientes extends HttpServlet {
 		}
 	}
 
-	
+	/**
+	 * Refers to the corresponding method of the servlet: doGet, doPost, doPut, doDelete, according to the method of the request
+	 */
 	protected void service(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
    
 		String method = request.getMethod();
 		
-		if (method.equals("GET") ){
+		String pathInfo = request.getPathInfo();
+
+		// Uncomment to chek pathInfo
+		System.out.println(pathInfo);
+		
+		if (method.equals("GET") && (pathInfo == null || pathInfo.equals("/") )){
 				
-				doGet(request, response);} 
-			
-		else if (method.equals("POST")) {
-			
-			doPost(request, response);} 
+				doGet(request, response);
+				
+		}
 		
-		else if (method.equals("PUT")) {
+		else if(method.equals("GET") && (pathInfo == null || pathInfo.equals("/getbyid") )) {
 			
-			doPut(request, response);}
+			doGetById(request, response);			
+		}
 		
-		else if (method.equals("DELETE")) {
+
+		else if (method.equals("POST") && (pathInfo == null || pathInfo.equals("/") )) {
+			
+			doPost(request, response);
+			
+		} 
+		
+		else if (method.equals("PUT") && (pathInfo == null || pathInfo.equals("/") )) {
+			
+			doPut(request, response);
+			
+		}
+		
+		else if (method.equals("DELETE") && (pathInfo == null || pathInfo.equals("/") )) {
 				
 				doDelete(request, response);
 			
@@ -70,8 +89,7 @@ public class Clientes extends HttpServlet {
 	    // Servlet doesn't currently support 
 	    // other types of request.
 	    String errMsg = "Method Not Supported";
-	    response.sendError(
-	      HttpServletResponse.SC_NOT_IMPLEMENTED, errMsg);
+	    response.sendError(HttpServletResponse.SC_NOT_IMPLEMENTED, errMsg);
 	   }
 	}
 
@@ -79,13 +97,6 @@ public class Clientes extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String pathInfo = request.getPathInfo();
-
-		// Uncomment to chek pathInfo
-		System.out.println(pathInfo);
-
-		if (pathInfo == null || pathInfo.equals("/")) {
-			// Get all clientes
 
 			try {
 
@@ -108,44 +119,47 @@ public class Clientes extends HttpServlet {
 
 				e.printStackTrace();
 			}
-
-		} else {
-
-			int id = Integer.parseInt(request.getParameter("id"));
-			String nombre = request.getParameter("nombre");
-
-			System.out.println("Parametros: " + id + ", " + nombre);
-
-			Cliente cliente;
-
-			try {
-
-				clienteDao = new ClienteDao();
-
-				System.out.println("Get ONe");
-
-				cliente = clienteDao.getById(id);
-
-				System.out.println(cliente.toString());
-
-			} catch (SQLException e) {
-
-				e.printStackTrace();
-			}
-		}
 	}
 
+	
+	protected void doGetById(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		
+	
+		int id = Integer.parseInt(request.getParameter("id"));
+		String nombre = request.getParameter("nombre");
+
+		System.out.println("Parametros: " + id + ", " + nombre);
+
+		Cliente cliente;
+
+		try {
+
+			clienteDao = new ClienteDao();
+
+			System.out.println("Get ONe");
+
+			cliente = clienteDao.getById(id);
+
+			System.out.println(cliente.toString());
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		
+		};
+	}
+
+	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		String pathInfo = request.getPathInfo();
-
+	
 		response.setContentType("application/json");
 
 		Cliente cliente;
 
-		if (pathInfo == null || pathInfo.equals("/")) {
+		try {
 
 			// Lee la respuesta
 			BufferedReader reader = request.getReader();
@@ -168,7 +182,8 @@ public class Clientes extends HttpServlet {
 			// Respuesta de control
 			response.getWriter().append("Cliente creado");
 
-		} else {
+		} catch(IOException e) {
+			
 			response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
 		}
 	}
@@ -177,11 +192,11 @@ public class Clientes extends HttpServlet {
 	protected void doPut(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String pathInfo = request.getPathInfo();
+
 		response.setContentType("application/json");
 		Cliente cliente;
 
-		if (pathInfo != null && !pathInfo.equals("/")) {
+		try {
 
 			// Lee la respuesta
 			BufferedReader reader = request.getReader();
@@ -204,10 +219,13 @@ public class Clientes extends HttpServlet {
 
 			// Respuesta de control
 			response.getWriter().append("Cliente creado");
-
+			
+		}catch(IOException e) {
+			
+			response.sendError(HttpServletResponse.SC_EXPECTATION_FAILED);
 		}
+		
 	}
-
 
 	  @Override protected void doDelete(HttpServletRequest request,HttpServletResponse response) 
 			  throws ServletException, IOException { String
@@ -229,10 +247,7 @@ public class Clientes extends HttpServlet {
 					  
 					  response.sendError(HttpServletResponse.SC_NOT_FOUND); 
 				}
-		  
-	  
-	  
 			  }
 	  }
-	 
+
 }
