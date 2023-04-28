@@ -27,13 +27,13 @@ public class ProveedorDao implements Repositorio<Proveedor, Integer> {
 	}
 	
 	@Override
-	public void crear(Proveedor proveedor) {
+	public void create(Proveedor proveedor) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public Proveedor buscar_uno_id(Integer id) throws SQLException {
+	public Proveedor getById(Integer id) throws SQLException {
 		
 		String query = "SELECT * FROM proveedor WHERE id_proveedor = ? " ;
 		
@@ -69,7 +69,7 @@ public class ProveedorDao implements Repositorio<Proveedor, Integer> {
 	}
 
 	@Override
-	public ArrayList<Proveedor> buscar_todos() throws SQLException {
+	public ArrayList<Proveedor> getAll() throws SQLException {
 		
 		String query = "SELECT * FROM proveedor";
 		
@@ -98,13 +98,13 @@ public class ProveedorDao implements Repositorio<Proveedor, Integer> {
 	}
 
 	@Override
-	public void eliminar(Integer id) {
+	public void delete(Integer id) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public int actualizar(Integer id, Proveedor proveedor) throws SQLException {
+	public int update(Integer id, Proveedor proveedor) throws SQLException {
 
 		/*
 		UPDATE table_name
@@ -113,7 +113,7 @@ public class ProveedorDao implements Repositorio<Proveedor, Integer> {
 		*/
 		
 		Proveedor proveedorNuevo = proveedor;
-		Proveedor proveedorActual = buscar_uno_id(id);
+		Proveedor proveedorActual = getById(id);
 		
 		
 		//Principio de la Query

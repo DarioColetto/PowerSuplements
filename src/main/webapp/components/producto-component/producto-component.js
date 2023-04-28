@@ -1,6 +1,6 @@
 
 import { HtmlReader } from "../../modules/HtmlReader.js";
-
+import { ProductoService } from "../../services/producto-service.js";
 
 export class ProductoComponent {
 
@@ -8,7 +8,7 @@ export class ProductoComponent {
   constructor(){
 	  
 	  this.html = 'http://localhost:8080/PowerSuplements/components/producto-component/producto-component.html';
-	  
+	  this.poductoService = new ProductoService()
   }
 
   render() {
@@ -21,15 +21,9 @@ export class ProductoComponent {
       data => { div.appendChild(data) }
     );
 
-      
-//Mandarlo a un paquete Service
-    fetch('http://localhost:8080/PowerSuplements/ProductoServlet', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-      .then(response => response.json())
+    
+    this.poductoService.getAll()
+
       .then(data => {
 
         const tbody =div.querySelector('tbody');

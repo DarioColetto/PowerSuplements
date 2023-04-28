@@ -3,7 +3,7 @@ export class ClienteComponent {
       const div = document.createElement('div');
       div.innerHTML = '<h1>Cliente Component</h1>';
 
-      fetch('http://localhost:8080/PowerSuplements/ClienteServlet2',{
+      fetch('http://localhost:8080/PowerSuplements/clientes',{
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'

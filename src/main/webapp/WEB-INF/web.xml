@@ -28,14 +28,16 @@
     <servlet-name>ProductoServlet</servlet-name>
     <url-pattern>/ProductoServlet</url-pattern>
   </servlet-mapping>
+  
   <servlet>
     <description></description>
-    <display-name>ClienteServlet2</display-name>
-    <servlet-name>ClienteServlet2</servlet-name>
-    <servlet-class>controller.cliente.ClienteServlet2</servlet-class>
+    <display-name>ClienteServlet</display-name>
+    <servlet-name>ClienteServlet</servlet-name>
+    <servlet-class>controller.cliente.Clientes</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>ClienteServlet2</servlet-name>
-    <url-pattern>/ClienteServlet2</url-pattern>
+    <servlet-name>ClienteServlet</servlet-name>
+    <url-pattern>/clientes/*</url-pattern>
   </servlet-mapping>
+  
 </web-app>

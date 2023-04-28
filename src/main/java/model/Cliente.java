@@ -7,14 +7,13 @@ package model;
 public class Cliente {
 	
 	private int id_cliente;
-	private String num_socio;
 	private String nombre;
 	private String telefono;
 	private String direccion;
 	private String email;
 	
-	public Cliente(String num_socio, String nombre, String telefono, String direccion, String email) {
-		this.setNum_socio(num_socio);
+	public Cliente(String nombre, String telefono, String direccion, String email) {
+		
 		this.nombre = nombre;
 		this.telefono = telefono;
 		this.direccion = direccion;
@@ -22,9 +21,9 @@ public class Cliente {
 	}
 
 	
-	public Cliente(int id_cliente, String num_socio, String nombre, String telefono, String direccion, String email) {
+	public Cliente(int id_cliente, String nombre, String telefono, String direccion, String email) {
+		
 		this.id_cliente = id_cliente;
-		this.setNum_socio(num_socio);
 		this.nombre = nombre;
 		this.telefono = telefono;
 		this.direccion = direccion;
@@ -73,19 +72,11 @@ public class Cliente {
 	}
 
 
-	public String getNum_socio() {
-		return num_socio;
-	}
-
-
-	public void setNum_socio(String num_socio) {
-		this.num_socio = num_socio;
-	}
 
 
 	@Override
 	public String toString() {
-		return "Cliente [id_cliente=" + id_cliente + ", num_socio=" + num_socio + ", nombre=" + nombre + ", telefono="
+		return "Cliente [id_cliente=" + id_cliente + ", nombre=" + nombre + ", telefono="
 				+ telefono + ", direccion=" + direccion + ", email=" + email + "]";
 	}
 	

@@ -9,31 +9,31 @@ import repositorio.Repositorio;
 public class VentasDao implements Repositorio<Venta, Integer> {
 
 	@Override
-	public void crear(Venta entity) {
+	public void create(Venta entity) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public Venta buscar_uno_id(Integer id) {
+	public Venta getById(Integer id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Venta> buscar_todos() {
+	public List<Venta> getAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void eliminar(Integer id) {
+	public void delete(Integer id) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public int actualizar(Integer id, Venta data) throws SQLException {
+	public int update(Integer id, Venta data) throws SQLException {
 		// TODO Auto-generated method stub
 		return 0;
 	}

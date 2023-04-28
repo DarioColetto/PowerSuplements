@@ -47,7 +47,7 @@ public class ProductosServlet extends HttpServlet {
 			
 			productoDao = new ProductoDao();
 			
-			json = gson.toJson(productoDao.buscar_todos());
+			json = gson.toJson(productoDao.getAll());
 			
 			
 			System.out.println(json);

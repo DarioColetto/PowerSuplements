@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 import model.Producto;
 import repositorio.Repositorio;
@@ -27,13 +26,13 @@ public class ProductoDao implements Repositorio<Producto, Integer> {
 	}
 	
 	@Override
-	public void crear(Producto producto) {
+	public void create(Producto producto) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public Producto buscar_uno_id(Integer id) throws SQLException {
+	public Producto getById(Integer id) throws SQLException {
 		
 		String query = "SELECT * FROM producto WHERE id_producto = ? " ;
 		
@@ -71,7 +70,7 @@ public class ProductoDao implements Repositorio<Producto, Integer> {
 	}
 
 	@Override
-	public ArrayList<Producto> buscar_todos() throws SQLException {
+	public ArrayList<Producto> getAll() throws SQLException {
 		
 		String query = "SELECT * FROM producto";
 		
@@ -103,13 +102,13 @@ public class ProductoDao implements Repositorio<Producto, Integer> {
 	}
 
 	@Override
-	public void eliminar(Integer id) {
+	public void delete(Integer id) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public int actualizar(Integer id, Producto producto) throws SQLException {
+	public int update(Integer id, Producto producto) throws SQLException {
 
 		/*
 		UPDATE table_name
@@ -118,7 +117,7 @@ public class ProductoDao implements Repositorio<Producto, Integer> {
 		*/
 		
 		Producto productoNuevo = producto;
-		Producto productoActual = buscar_uno_id(id);
+		Producto productoActual = getById(id);
 		
 		
 		//Principio de la Query

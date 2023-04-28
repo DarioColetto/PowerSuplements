@@ -31,7 +31,7 @@ class TestProveedorDao {
 	void BuscarUnoByIdTest() throws SQLException {
 		
 		
-		Proveedor proveedorPrueba = proveedorDao.buscar_uno_id(1);
+		Proveedor proveedorPrueba = proveedorDao.getById(1);
 		
 		assertEquals(Proveedor.class, proveedorPrueba.getClass() );
 		
@@ -42,7 +42,7 @@ class TestProveedorDao {
 	@DisplayName("Buscar Todos")
 	void BuscarTodosTest() throws SQLException {
 		
-		ArrayList<Proveedor> proveedors = proveedorDao.buscar_todos();
+		ArrayList<Proveedor> proveedors = proveedorDao.getAll();
 		
 		assertEquals(ArrayList.class, proveedors.getClass());
 		assertTrue(proveedors.size() > 0);

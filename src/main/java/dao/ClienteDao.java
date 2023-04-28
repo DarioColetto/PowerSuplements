@@ -32,13 +32,13 @@ public class ClienteDao implements Repositorio<Cliente, Integer> {
 
 
 	@Override
-	public void crear(Cliente cliente) {
+	public void create(Cliente cliente) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public Cliente buscar_uno_id(Integer id) throws SQLException {
+	public Cliente getById(Integer id) throws SQLException {
 		
 		String query = "SELECT * FROM cliente WHERE id_cliente = ? " ;
 		
@@ -55,8 +55,8 @@ public class ClienteDao implements Repositorio<Cliente, Integer> {
 					rs.getString("nombre"), 
 					rs.getString("direccion"),
 					rs.getString("telefono"),
-					rs.getString("email"),
-					rs.getString("numero_socio"));
+					rs.getString("email"));
+					
 			
 			ps.close();
 			connection.close();
@@ -75,7 +75,7 @@ public class ClienteDao implements Repositorio<Cliente, Integer> {
 	}
 
 	@Override
-	public ArrayList<Cliente> buscar_todos() throws SQLException {
+	public ArrayList<Cliente> getAll() throws SQLException {
 		
 		String query = "SELECT * FROM cliente";
 		
@@ -90,7 +90,6 @@ public class ClienteDao implements Repositorio<Cliente, Integer> {
 			
 			Cliente cliente = new Cliente(
 					rs.getInt("id_cliente"), 
-					rs.getString("numero_socio"), 
 					rs.getString("nombre"),
 					rs.getString("telefono"),
 					rs.getString("direccion"),						
@@ -107,14 +106,14 @@ public class ClienteDao implements Repositorio<Cliente, Integer> {
 
 		
 	@Override
-	public void eliminar(Integer id) {
+	public void delete(Integer id) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	
 	@Override
-	public int actualizar(Integer id, Cliente cliente) throws SQLException {
+	public int update(Integer id, Cliente cliente) throws SQLException {
 		
 		/*
 		UPDATE table_name
@@ -123,7 +122,7 @@ public class ClienteDao implements Repositorio<Cliente, Integer> {
 		*/
 		
 		Cliente clienteNuevo = cliente;
-		Cliente clienteActual = buscar_uno_id(id);
+		Cliente clienteActual = getById(id);
 		
 		
 		//Principio de la Query
@@ -136,11 +135,6 @@ public class ClienteDao implements Repositorio<Cliente, Integer> {
 		if ( !clienteActual.getNombre().equals(clienteNuevo.getNombre())) {
 			
 			query += "nombre=\'" + clienteNuevo.getNombre() +"\', ";
-		}
-		//Numero_socio
-		if ( !clienteActual.getNum_socio().equals(clienteNuevo.getNum_socio())); {
-			
-			query += "num_socio=\'" + clienteNuevo.getNum_socio()+"\', ";
 		}
 		
 		//Direccion
