@@ -104,7 +104,7 @@ public class ProveedorDao implements Repositorio<Proveedor, Integer> {
 	}
 
 	@Override
-	public int update(Integer id, Proveedor proveedor) throws SQLException {
+	public int update(Proveedor proveedor) throws SQLException {
 
 		/*
 		UPDATE table_name
@@ -113,7 +113,7 @@ public class ProveedorDao implements Repositorio<Proveedor, Integer> {
 		*/
 		
 		Proveedor proveedorNuevo = proveedor;
-		Proveedor proveedorActual = getById(id);
+		Proveedor proveedorActual = getById(proveedor.getId_proveedor());
 		
 		
 		//Principio de la Query

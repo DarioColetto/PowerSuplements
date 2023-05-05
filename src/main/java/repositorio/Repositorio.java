@@ -33,7 +33,7 @@ public interface Repositorio<T, ID> {
 	 * @return either (1) the row count for SQL Data Manipulation Language (DML) statementsor (2) 0 for SQL statements that return nothing
 	 * @throws SQLException
 	 */
-	int update(ID id, T data) throws SQLException; 
+	int update(T data) throws SQLException; 
 	
 	/**
 	 * Elimna el objeto en la base de datos por el id

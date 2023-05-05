@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Alta Cliente</title>
+    <link rel="stylesheet" href="registration.css">
+    <script src="alta-cliente-component.js" type="module"></script>
+  </head>
+  <body>
+    <form id="registration-form">
+        <fieldset>
+            <legend>Alta cliente</legend>
+      <div class="form-group">
+        <label for="full-name">Nombre:</label>
+        <input type="text" id="full-name" pattern="^[a-zA-Z ]{2,30}$" name="full-name" placeholder="Enter your full name"  required>
+        <span class="error-message">
+          Enter a valid name
+        </span>
+        <span class="success-message">
+          Correct
+        </span>
+      
+      </div>
+      </div>
+      <div class="form-group">
+        <label for="phone-number">Telefono:</label>
+        <input type="tel" id="phone-number" name="phone-number" pattern="^\d{9}$" placeholder="Enter your phone number" required>
+        <span class="error-message">
+          Enter a valid phone number
+        </span>
+        <span class="success-message">
+          Correct
+        </span>
+      
+      </div>
+      <div class="form-group">
+        <label for="full-name">Direccion:</label>
+        <input type="text" id="adress" name="adress" pattern="^[a-zA-Z\dñ\s]{5,50}$" placeholder="Enter your adress" required>
+        <span class="error-message">
+          Enter a valid adress
+        </span>
+        <span class="success-message">
+          Correct
+        </span>
+      
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" pattern= "^[^\s@]+@[^\s@]+\.[^\s@]+$" placeholder="Enter your email address" required>
+        <span class="error-message">
+          Enter a valid email
+        </span>
+        <span class="success-message">
+          Correct
+        </span>
+      
+      </div>
+
+
+    <div class="form-group">
+      <button id = boton-crear type="submit">Submit</button>
+      <button id="boton-reset" type="reset">Cancelar</button>
+    </div>
+    </fieldset>
+    </form>
+
+  </body>
+</html>

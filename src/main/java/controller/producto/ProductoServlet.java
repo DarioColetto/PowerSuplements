@@ -49,7 +49,18 @@ public class ProductoServlet extends HttpServlet {
 	 */
 	protected void service(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
-   
+		
+        if (request.getMethod().equals("OPTIONS")) {
+            // Set the CORS headers
+
+
+            // Return a successful response
+            response.setStatus(HttpServletResponse.SC_OK);
+            return;
+        }
+        
+    
+		
 		String method = request.getMethod();
 		
 		String pathInfo = request.getPathInfo();
@@ -96,10 +107,12 @@ public class ProductoServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-
+				
+		
 			try {
-
+				
+				productoDao = new ProductoDao();
+				
 				List<Producto> productos = productoDao.getAll();
 
 				System.out.println(productos);
@@ -107,10 +120,12 @@ public class ProductoServlet extends HttpServlet {
 				json = gson.toJson(productos);
 
 				System.out.println(json);
+				
 				// response.getWriter().append(json);
-				response.setContentType("application/json");
+				
 				response.getWriter().println(json);
-
+				
+				response.setContentType("application/json");
 				// request.setAttribute("productos", productos);
 				// request.getRequestDispatcher("/WEB-INF/views/productos.jsp").forward(request,
 				// response);
@@ -197,7 +212,7 @@ public class ProductoServlet extends HttpServlet {
 
 
 		response.setContentType("application/json");
-		Producto producto;
+		Producto productoUpdated;
 
 		try {
 
@@ -206,7 +221,9 @@ public class ProductoServlet extends HttpServlet {
 			// Convierte la respuesta JSON
 			JsonObject json = gson.fromJson(reader, JsonObject.class);
 
-			// Obtiene los claves y los valores
+			// Obtiene las claves y los valores
+			
+			int id_producto = json.get("id_producto").getAsInt();		
 			String nombre = json.get("nombre").getAsString();
 			double precio = json.get("precio").getAsDouble();
 			String categoria = json.get("categoria").getAsString();
@@ -214,18 +231,20 @@ public class ProductoServlet extends HttpServlet {
 			String foto = json.get("foto").getAsString();
 			int stock = json.get("stock").getAsInt();
 			int id_proveedor = json.get("id_proveedor").getAsInt();
+			
+			//Nuevos datos  para actualizar
+			productoUpdated = new Producto(id_producto,nombre,precio, categoria,  descripcion,foto,stock, id_proveedor );
 
-			producto = new Producto(nombre,precio, categoria,  descripcion,foto,stock, id_proveedor );
-
-			// TODO agregar el dao
+			//Dao
+			productoDao.update(productoUpdated);
 
 			// Control de salida por consola de los valores obtenidos
-			System.out.println(producto.toString());
+			System.out.println(productoUpdated.toString());
 
 			// Respuesta de control
 			response.getWriter().append("Producto creado");
 			
-		}catch(IOException e) {
+		}catch(IOException | SQLException e) {
 			
 			response.sendError(HttpServletResponse.SC_EXPECTATION_FAILED);
 		}
@@ -254,5 +273,8 @@ public class ProductoServlet extends HttpServlet {
 				}
 			  }
 	  }
+	  
+	  
+
 
 }

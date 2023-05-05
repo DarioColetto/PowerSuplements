@@ -113,7 +113,7 @@ public class ClienteDao implements Repositorio<Cliente, Integer> {
 
 	
 	@Override
-	public int update(Integer id, Cliente cliente) throws SQLException {
+	public int update(Cliente cliente) throws SQLException {
 		
 		/*
 		UPDATE table_name
@@ -122,7 +122,8 @@ public class ClienteDao implements Repositorio<Cliente, Integer> {
 		*/
 		
 		Cliente clienteNuevo = cliente;
-		Cliente clienteActual = getById(id);
+		//Obtiene el id para hacer las comparaciones
+		Cliente clienteActual = getById(clienteNuevo.getId_cliente());
 		
 		
 		//Principio de la Query

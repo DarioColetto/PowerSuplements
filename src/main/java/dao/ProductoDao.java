@@ -32,7 +32,7 @@ public class ProductoDao implements Repositorio<Producto, Integer> {
 	}
 
 	@Override
-	public Producto getById(Integer id) throws SQLException {
+	public  Producto getById(Integer id) throws SQLException {
 		
 		String query = "SELECT * FROM producto WHERE id_producto = ? " ;
 		
@@ -108,7 +108,7 @@ public class ProductoDao implements Repositorio<Producto, Integer> {
 	}
 
 	@Override
-	public int update(Integer id, Producto producto) throws SQLException {
+	public int update(Producto producto) throws SQLException {
 
 		/*
 		UPDATE table_name
@@ -117,7 +117,7 @@ public class ProductoDao implements Repositorio<Producto, Integer> {
 		*/
 		
 		Producto productoNuevo = producto;
-		Producto productoActual = getById(id);
+		Producto productoActual = getById(productoNuevo.getId_producto());
 		
 		
 		//Principio de la Query

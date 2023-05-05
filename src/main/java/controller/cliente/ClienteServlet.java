@@ -194,7 +194,7 @@ public class ClienteServlet extends HttpServlet {
 
 
 		response.setContentType("application/json");
-		Cliente cliente;
+		Cliente clienteUpdated;
 
 		try {
 
@@ -204,23 +204,26 @@ public class ClienteServlet extends HttpServlet {
 			JsonObject json = gson.fromJson(reader, JsonObject.class);
 
 			// Obtiene los claves y los valores
-			int id = json.get("id").getAsInt();
+			int id_cliente = json.get("id_cliente").getAsInt();
 			String nombre = json.get("nombre").getAsString();
 			String telefono = json.get("telefono").getAsString();
 			String direccion = json.get("direccion").getAsString();
 			String email = json.get("email").getAsString();
 
-			cliente = new Cliente(id, nombre, telefono, direccion, email);
+			
+			clienteUpdated = new Cliente(id_cliente, nombre, telefono, direccion, email);
 
 			// TODO agregar el dao
+			
+			clienteDao.update(clienteUpdated);
 
 			// Control de salida por consola de los valores obtenidos
-			System.out.println(cliente.toString());
+			System.out.println(clienteUpdated.toString());
 
 			// Respuesta de control
 			response.getWriter().append("Cliente creado");
 			
-		}catch(IOException e) {
+		}catch(IOException | SQLException e) {
 			
 			response.sendError(HttpServletResponse.SC_EXPECTATION_FAILED);
 		}

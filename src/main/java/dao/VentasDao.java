@@ -33,7 +33,7 @@ public class VentasDao implements Repositorio<Venta, Integer> {
 	}
 
 	@Override
-	public int update(Integer id, Venta data) throws SQLException {
+	public int update(Venta data) throws SQLException {
 		// TODO Auto-generated method stub
 		return 0;
 	}

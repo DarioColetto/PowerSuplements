@@ -1,8 +1,9 @@
-import { VentaComponent } from "./components/venta-component.js";
+import { VentaComponent } from "./components/venta-component/venta-component.js";
 import { ProductoComponent } from "./components/producto-component/producto-component.js";
-import { ClienteComponent } from "./components/cliente-component.js";
-import { ProveedorComponent } from "./components/proveedor-component.js";
-import { HomeComponent } from "./components/home-component.js";
+import { ClienteComponent } from "./components/cliente-component/cliente-component.js";
+import { ProveedorComponent } from "./components/proveedor-component/proveedor-component.js";
+import { HomeComponent } from "./components/home-component/home-component.js";
+import { AltaClienteComponent } from "./components/alta-cliente/alta-cliente-component.js";
 
 
 export const Router = () =>{
@@ -16,6 +17,7 @@ export const Router = () =>{
     { path: '/PowerSuplements/productos', component: ProductoComponent  },
     { path: '/PowerSuplements/clientes', component: ClienteComponent  },
     { path: '/PowerSuplements/proveedores', component: ProveedorComponent },
+    { path: '/PowerSuplements/alta-cliente', component: AltaClienteComponent },
   ];
   
 
@@ -30,12 +32,24 @@ export const Router = () =>{
     renderRoute(getCurrentRoute());
   }
   
+  
   function renderRoute(route) {
+    
     const component = new route.component();
+    //Get root element
     const rootElement = document.getElementById('root');
-    rootElement.innerHTML = '';
-    rootElement.appendChild(component.render());
+    //Get the child of the root element
+    const currentComponent = document.querySelector('main div');
+    //Replace the child element with the component as a first parameter, second, current component.
+    rootElement.replaceChild(component.render(), currentComponent )
+    
+    console.log(component.render())
+
+    
+
+
   }
+  
   
   window.addEventListener('load', () => {
     renderRoute(getCurrentRoute());

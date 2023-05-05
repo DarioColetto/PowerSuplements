@@ -200,12 +200,13 @@ public class ProveedorServlet extends HttpServlet {
 			JsonObject json = gson.fromJson(reader, JsonObject.class);
 
 			// Obtiene los claves y los valores
+			int id_proveedor = Integer.parseInt(request.getParameter("id"));	
 			String nombre = json.get("nombre").getAsString();
 			String telefono = json.get("telefono").getAsString();
 			String direccion = json.get("direccion").getAsString();
 			String email = json.get("email").getAsString();
 
-			proveedor = new Proveedor(nombre, telefono, email, direccion);
+			proveedor = new Proveedor(id_proveedor,nombre, telefono, email, direccion);
 			// TODO agregar el dao
 
 			// Control de salida por consola de los valores obtenidos
