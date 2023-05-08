@@ -1,4 +1,4 @@
-class Proveedor {
+export class Proveedor {
 
 
     id_proveedor;

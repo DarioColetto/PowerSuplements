@@ -2,7 +2,7 @@ export class Producto {
 
     id_producto;
     nombre;
-    cateoria;
+    categoria;
     precio;
     proveedor;
     descripcion;

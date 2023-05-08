@@ -1,3 +1,5 @@
+
+
 form{
   font-family: Tahoma, Geneva, sans-serif;
   letter-spacing: 0px;
@@ -6,6 +8,7 @@ form{
   font-style: normal;
   font-variant: normal;
   text-transform: none;
+  max-width: 50%;
   }
 
 .form-group {
@@ -27,20 +30,6 @@ fieldset {
   border: 3px solid #264653;
 }
 
-
-#boton-crear{
-
-    background-color: #058800;
-    color: white;
-    padding: 5px;    
-}
-
-#boton-reset{
-
-    background-color: #ff8800;
-    color: white;
-    padding: 5px;    
-}
   
   label {
     display: inline-block;
@@ -84,3 +73,25 @@ fieldset {
     border-color: #0085ff;
   }
   
+  .button-box{
+
+    display: block;
+    width: 40%;
+
+  }
+
+  .submitButton{
+      background-color: #058800;
+    color: white;
+    padding: 5px;
+    width: 100px; 
+
+  }
+
+  .cancelButton{
+
+    background-color: #ff8800;
+    color: white;
+    padding: 5px;
+    width: 100px;     
+}

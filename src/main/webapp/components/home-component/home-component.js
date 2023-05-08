@@ -1,9 +1,12 @@
-export class HomeComponent {
+export class HomeComponent extends HTMLElement {
     
-  render() {
-      const div = document.createElement('div');
-      div.innerHTML = '<h1>Home Component</h1>';
-      
-      return div;
-    }
+  constructor(){
+    super()
+    this.innerHTML = "<h1>WELCOME</h1>"
   }
+  
+
+}
+
+
+customElements.define('home-component', HomeComponent);

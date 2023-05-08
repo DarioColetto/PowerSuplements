@@ -1,9 +1,10 @@
-import { VentaComponent } from "./components/venta-component/venta-component.js";
-import { ProductoComponent } from "./components/producto-component/producto-component.js";
-import { ClienteComponent } from "./components/cliente-component/cliente-component.js";
-import { ProveedorComponent } from "./components/proveedor-component/proveedor-component.js";
+
+
+import { ClienteComponent } from "./components/cliente/cliente-component.js";
 import { HomeComponent } from "./components/home-component/home-component.js";
-import { AltaClienteComponent } from "./components/alta-cliente/alta-cliente-component.js";
+import { ProductoComponent } from "./components/producto/producto-component.js";
+import { ProveedorComponent } from "./components/proveedor-component/proveedor-component.js";
+
 
 
 export const Router = () =>{
@@ -13,11 +14,10 @@ export const Router = () =>{
   const routes = [
     { path: '/', component: HomeComponent },
     { path: '/PowerSuplements', component: HomeComponent },
-    { path: '/PowerSuplements/ventas', component: VentaComponent },
+    //{ path: '/PowerSuplements/ventas', component: VentaComponent },
     { path: '/PowerSuplements/productos', component: ProductoComponent  },
     { path: '/PowerSuplements/clientes', component: ClienteComponent  },
     { path: '/PowerSuplements/proveedores', component: ProveedorComponent },
-    { path: '/PowerSuplements/alta-cliente', component: AltaClienteComponent },
   ];
   
 
@@ -39,15 +39,13 @@ export const Router = () =>{
     //Get root element
     const rootElement = document.getElementById('root');
     //Get the child of the root element
-    const currentComponent = document.querySelector('main div');
-    //Replace the child element with the component as a first parameter, second, current component.
-    rootElement.replaceChild(component.render(), currentComponent )
+
+
+    rootElement.children[0].remove()
+    rootElement.appendChild( component)
+    console.log(rootElement.children[0])
     
-    console.log(component.render())
-
     
-
-
   }
   
   

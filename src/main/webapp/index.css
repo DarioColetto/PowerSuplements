@@ -1,6 +1,13 @@
-@import "./components/producto-component/productos-component.css";
-@import "/components/alta-cliente/registration.css";
+@import '/components/forms.css';
+@import '/components/table-component.css';
+@import '/components/modal-component.css';
 
+producto-component, proveedor-component, cliente-component {
+
+    display: flex;
+    flex-direction: column;
+    margin-left: 5%;
+}
 /*Header*/
 
 body{
@@ -20,7 +27,7 @@ body{
 }
 
 
-img {
+#logo {
     display: block; /* Set the display property to block */
     margin: auto; /* Center the image horizontally */
     max-width: 100%;
@@ -45,13 +52,15 @@ section{
 
 .navbar {
     display: flex;
-    /* justify-content: space-between; */
     align-items: center;
     background-color: #333;
     color: #fff;
     height: 60px;
     padding: 0 20px;
-  }
+    font-size: 20px;
+    text-transform: uppercase;
+    font-family: sans-serif;
+}
   
   .navbar-logo img {
     height: 40px;
@@ -102,3 +111,38 @@ section{
 }
 
 
+
+.create-button {
+
+  width: 30px;
+  height: 30px;
+  border-style: none;
+  box-shadow: 0 0 5px #0085ff;
+  border-radius: 5px;
+  background-image: url('/assets/bottons/add.png');
+  background-size: contain;
+  background-position: center;
+  margin-right: 5px;
+  border-color: #0085ff;
+  box-shadow: 0 0 5px #0085ff;
+  margin-bottom: 10px;
+  padding: 5px;
+
+}
+
+.create-button:hover {
+  border-radius: 5px;
+  background-color: #ff5e01;
+}
+
+nav a{
+  padding: 5px;
+}
+
+nav a:hover{
+
+  background: antiquewhite;
+  color: #333;
+  font-size: 21px;
+  
+}

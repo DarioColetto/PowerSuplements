@@ -1,28 +1,30 @@
-import { proveedores } from "../../datos_prueba.js";
+import { clientes } from "../../datos_prueba.js";
 import { TableComponent } from "../table-component.js";
 import { ModalComponent } from "../modal-component.js";
 
-import { AltaProveedorComponent } from "./alta-proveedor-component.js";
-import { UpdateProveedorComponent } from "./update-proveedor-component.js";
+import { AltaClienteComponent } from "./alta-cliente-component.js"; 
+import {UpdateClienteComponent} from "./update-cliente-component.js"; 
 
-
-export class ProveedorComponent extends HTMLElement {
+export class ClienteComponent extends HTMLElement {
 
   constructor() {
-
+    
     super();
-    this.innerHTML = '<h1>Proveedor Component</h1>';
 
+    this.innerHTML = '<h1>Cliente Component</h1>';
+  
   }
+   connectedCallback() {
 
-  connectedCallback() {
+    console.log('Producto Component')
+    
 
     const crearButton = document.createElement('button')
     crearButton.className = 'create-button';
     this.appendChild(crearButton)
     crearButton.addEventListener('click', () => {
 
-      let form = new AltaProveedorComponent();
+      let form = new AltaClienteComponent();
       const modal = this.openModal()
       modal.content.appendChild(form);
 
@@ -30,9 +32,10 @@ export class ProveedorComponent extends HTMLElement {
 
 
     const table = new TableComponent();
+    //console.log(table)
     const tags = ['#', 'nombre', 'telefono', 'direccion', 'email']
     table.setHeaders(tags)
-    table.insertData(proveedores)
+    table.insertData(clientes)
 
     //Adds funtionality to the buttons o the table
     table.editButtons.forEach(btn => {
@@ -42,11 +45,11 @@ export class ProveedorComponent extends HTMLElement {
         let button = event.target
         let index = button.getAttribute("value")
         index = parseInt(index)
-        const data = proveedores[index];
+        const data = clientes[index];
 
-        let form = new UpdateProveedorComponent(data);
+        let form = new UpdateClienteComponent(data);
         const modal = this.openModal()
-        modal.content.appendChild(form);
+      modal.content.appendChild(form);
       })
     })
 
@@ -58,8 +61,8 @@ export class ProveedorComponent extends HTMLElement {
         let button = event.target
         let index = button.getAttribute("value")
         index = parseInt(index)
-        const data = proveedores[index];
-        let confirmation = confirm(`Desea eliminar proveedor: ${data.nombre}`)
+        const data = clientes[index];
+        let confirmation = confirm(`Desea eliminar cliente : ${data.nombre}`)
 
         if (confirmation) {
 
@@ -103,4 +106,7 @@ export class ProveedorComponent extends HTMLElement {
 
 }
 
-customElements.define("proveedor-component", ProveedorComponent);
+customElements.define('cliente-component', ClienteComponent)
+  
+  
+  

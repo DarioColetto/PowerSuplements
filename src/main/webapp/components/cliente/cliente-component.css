@@ -2,7 +2,7 @@
 @import '/components/table-component.css';
 @import '/components/modal-component.css';
 
-proveedor-component {
+cliente-component {
 
     display: flex;
     flex-direction: column;

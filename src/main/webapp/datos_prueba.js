@@ -55,4 +55,28 @@ let productos = [
     }
   ]
 
-  export {productos, clientes}
+  let proveedores =[
+    {
+      "id_proveedor": 1,
+      "nombre": "John Smith",
+      "telefono": "555-1234",
+      "direccion": "123 Main St",
+      "email": "john.smith@example.com"
+    },
+    {
+      "id_proveedor": 2,
+      "nombre": "Jane Doe",
+      "telefono": "555-5678",
+      "direccion": "456 Oak St",
+      "email": "jane.doe@example.com"
+    },
+    {
+      "id_proveedor": 3,
+      "nombre": "Bob Johnson",
+      "telefono": "555-9012",
+      "direccion": "789 Elm St",
+      "email": "bob.johnson@example.com"
+    }
+  ]
+
+  export {productos, clientes, proveedores}
