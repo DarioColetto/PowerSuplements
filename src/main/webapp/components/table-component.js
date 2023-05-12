@@ -116,7 +116,6 @@ export class TableComponent extends HTMLElement {
 
     }
 
-    render(){} 
 
 }
 

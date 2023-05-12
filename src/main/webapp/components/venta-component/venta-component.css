@@ -1,0 +1,32 @@
+/* @import '/components/forms.css';
+@import '/components/table-component.css';
+@import '/components/modal-component.css'; */
+
+proveedor-component {
+
+    display: flex;
+    flex-direction: column;
+}
+
+.create-button {
+
+    width: 30px;
+    height: 30px;
+    border-style: none;
+    box-shadow: 0 0 5px #0085ff;
+    border-radius: 5px;
+    background-image: url('/assets/bottons/add.png');
+    background-size: contain;
+    background-position: center;
+    margin-right: 5px;
+    border-color: #0085ff;
+    box-shadow: 0 0 5px #0085ff;
+    margin-bottom: 10px;
+    padding: 5px;
+
+}
+
+.create-button:hover {
+    border-radius: 5px;
+    background-color: #ff5e01;
+}
