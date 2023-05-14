@@ -1,32 +1,82 @@
-/* @import '/components/forms.css';
-@import '/components/table-component.css';
-@import '/components/modal-component.css'; */
 
-proveedor-component {
+/* @import '/src/main/webapp/components/table-component.css'; */
 
+
+venta-component {
+
+    display: flex;
+    flex-direction: column;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.card{
+
+    background: #CB07B3;
+    background: -moz-linear-gradient(top, #d687cd 0%, #d01fba 66%, #CB07B3 100%);
+    background: -webkit-linear-gradient(top, #d687cd 0%, #d01fba 66%, #CB07B3 100%);
+    background: linear-gradient(to bottom, #d687cd 0%, #d01fba 66%, #CB07B3 100%);
+    margin-bottom: 5px;
+    padding: 10px;
+
+    
+
+}
+
+
+
+.venta-container, .detalle {
+    
+    display: flex;
+    justify-content: space-between;
+}
+
+.venta-container{
+    margin-left: 5px;
+    margin-bottom: 5px;
+}
+
+.detalle-container{
     display: flex;
     flex-direction: column;
 }
 
-.create-button {
-
-    width: 30px;
-    height: 30px;
-    border-style: none;
-    box-shadow: 0 0 5px #0085ff;
-    border-radius: 5px;
-    background-image: url('/assets/bottons/add.png');
-    background-size: contain;
-    background-position: center;
-    margin-right: 5px;
-    border-color: #0085ff;
-    box-shadow: 0 0 5px #0085ff;
-    margin-bottom: 10px;
-    padding: 5px;
-
+.detalle{
+    display: flex;
 }
 
-.create-button:hover {
-    border-radius: 5px;
-    background-color: #ff5e01;
+
+
+/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    max-height: fit-content;
+    width: fit-content;
+    border: none;
+    text-align: center;
+    outline: none;
+    
+  }
+
+  .collapsible:after {
+    content: '\25b6';
+    color: #CB07B3;
+    font-weight: bold;
+  }
+  
+  /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+  .active, .collapsible:hover {
+    background-color: #ccc;
+  }
+  
+  .active:after {
+    content: "\25bc";
+  }
+  /* Style the collapsible content. Note: hidden by default */
+table{    
+
+    display: none;
+    overflow: hidden;
+    
 }

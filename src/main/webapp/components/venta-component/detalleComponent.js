@@ -1,148 +1,192 @@
+import { DetalleRow } from "../../models/Venta.js";
+
+/**
+ * Custom HTMLElement  which wraps inputs.
+ * addRow(),
+ * delete(),
+ * getValues()
+ * @class
+ */
 export class DetalleComponent extends HTMLElement {
-    rowIndex = 0;
-    dataList = [];
+  rowIndex = 0;
+  dataList = [];
 
-    constructor() {
-        super();
+  constructor() {
+    super();
+  }
+
+  connectedCallback() {
+    this.addRowButton = document.createElement("button");
+    this.addRowButton.innerHTML = "ADD";
+    this.append(this.addRowButton);
+
+    this.addRowButton.addEventListener("click", (e) => {
+      e.preventDefault();
+      this.addRow();
+    });
+  }
+
+  /**
+   * Creates a component that allows the user to select a product from a list and display its price.
+   *
+   */
+  addRow() {
+    this.rowIndex++;
+    this.dataList = [
+      { id: 1, nombre: "Whey", precio: 35.0 },
+      { id: 3, nombre: "Amino", precio: 10.5 },
+      { id: 5, nombre: "Barrita", precio: 20.0 },
+    ];
+
+    //ROW CONTEINER
+    const rowDetalle = document.createElement("div");
+    rowDetalle.className = "row-detalle";
+    rowDetalle.id = `row-detalle-${this.rowIndex}`;
+    this.addRowButton.insertAdjacentElement("beforebegin", rowDetalle);
+
+    //SELECT ELEMENT
+    const select = document.createElement("select");
+    select.setAttribute("name", "productos-list");
+    select.className = "select";
+    select.id = `select${this.rowIndex}`;
+    select.setAttribute("row-index", this.rowIndex);
+    rowDetalle.appendChild(select);
+
+    //OPTION ELEMENT
+    //Adds the first element option empty
+    const option = document.createElement("option");
+    option.value = "";
+    option.innerHTML = "Choose...";
+    option.setAttribute("selected", "selected");
+    option.setAttribute("disable", "disable");
+    option.setAttribute("hidden", "hidden");
+
+    select.appendChild(option);
+
+    //Adds option elements ass children of SELECT element
+    for (let i = 0; i < this.dataList.length; i++) {
+      const option = document.createElement("option");
+      option.value = i;
+      option.id = `option${this.rowIndex}`;
+      option.innerHTML = this.dataList[i].nombre;
+      select.appendChild(option);
     }
 
-    connectedCallback() {
+    const precioLabel = document.createElement("p");
+    precioLabel.classList = "precio-label";
+    precioLabel.id = `precio${this.rowIndex}`;
+    precioLabel.innerText = "$";
+    rowDetalle.appendChild(precioLabel);
 
-        this.addRowButton = document.createElement('button');
-        this.addRowButton.innerHTML = 'ADD';
-        this.append(this.addRowButton);
+    select.addEventListener("change", (e) => {
+      let index = e.target.value;
 
-        this.addRowButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            this.addRow();
-        })
+      let rowIndex = e.target.getAttribute("row-index");
+      let label = document.querySelector(`#precio${rowIndex}`);
+      let item = this.dataList[index];
+      let precio = item.precio;
+      label.innerHTML = precio;
 
-    }
-    /**
-     * Creates a component that allows the user to select a product from a list and display its price. 
-     *
-     */
-    addRow() {
+      let subtotal = document.querySelector(`#subtotal${rowIndex}`);
+      subtotal.innerHTML = precio;
 
-        this.rowIndex++;
-        this.dataList = [
-            { id: 1, nombre: 'Whey', precio: 35.0 },
-            { id: 3, nombre: 'Amino', precio: 10.5 },
-            { id: 5, nombre: 'Barrita', precio: 20.0 },
-        ];
+      let spinnerInput = document.querySelector(`#spinner${rowIndex}`);
+      spinnerInput.value = 1;
+    });
 
-        //ROW CONTEINER
-        const rowDetalle = document.createElement('div');
-        rowDetalle.className = 'group-detalle';
-        rowDetalle.id = `row-detalle-${this.rowIndex}`
-        this.addRowButton.insertAdjacentElement('beforebegin', rowDetalle);
+    //SPINNER ELEMENT
+    const spinnerInput = document.createElement("input");
+    spinnerInput.className = "spinner";
+    spinnerInput.setAttribute("type", "number");
+    spinnerInput.setAttribute("value", "1");
+    spinnerInput.setAttribute("min", "1");
+    spinnerInput.classList.add("readonly");
+    spinnerInput.setAttribute("row-index", this.rowIndex);
+    spinnerInput.id = `spinner${this.rowIndex}`;
+    rowDetalle.appendChild(spinnerInput);
 
-        //SELECT ELEMENT
-        const select = document.createElement('select');
-        select.setAttribute('name', 'productos-list');
-        select.className = 'select';
-        select.id = `select${this.rowIndex}`;
-        select.setAttribute('row-index', this.rowIndex)
-        rowDetalle.appendChild(select);
+    const subtotal = document.createElement("p");
+    subtotal.classList = "subtotal";
+    subtotal.id = `subtotal${this.rowIndex}`;
+    subtotal.innerText = "$";
+    rowDetalle.appendChild(subtotal);
 
-        //OPTION ELEMENT
-        //Adds the first element option empty
-        const option = document.createElement('option');
-        option.value = '';
-        option.innerHTML = 'Choose...'
-        option.setAttribute('selected', 'selected')
-        option.setAttribute('disable', 'disable')
-        option.setAttribute('hidden', 'hidden')
-    
-        select.appendChild(option);
+    spinnerInput.addEventListener("change", (e) => {
+      //Get the elements
+      let cantidad = e.target.value;
+      let rowIndex = e.target.getAttribute("row-index");
+      let subtotalTag = document.querySelector(`#subtotal${rowIndex}`);
+      let precioTag = document.querySelector(`#precio${rowIndex}`);
 
-        //Adds option elements ass children of SELECT element
-        for (let i = 0; i < this.dataList.length; i++) {
-            const option = document.createElement('option');
-            option.value = i;
-            option.id = `option${this.rowIndex}`;
-            option.innerHTML = this.dataList[i].nombre;
-            select.appendChild(option);
-        }
+      //Get element values and parse them
+      cantidad = parseInt(cantidad);
+      let precio = parseFloat(precioTag.innerHTML);
+      let subtotal = parseFloat(subtotalTag.innerHTML);
 
-        const precioLabel = document.createElement('p');
-        precioLabel.classList = 'precio-label';
-        precioLabel.id = `precio${this.rowIndex}`;
-        precioLabel.innerText = '$';
-        rowDetalle.appendChild(precioLabel);
+      //Calc subtotal
+      subtotal = precio * cantidad;
+      console.log(
+        "precio:",
+        precio,
+        "cantidad: ",
+        cantidad,
+        "subtotal: ",
+        subtotal
+      );
+      //Insert de data
+      subtotalTag.innerHTML = subtotal;
+    });
 
-        select.addEventListener('change', (e) => {
+    //DELETE BUTTTON ELEMENT
+    const deleteButton = document.createElement("button");
+    deleteButton.innerHTML = "Delete";
+    rowDetalle.appendChild(deleteButton);
+    deleteButton.addEventListener("click", () => this.deleteRow(rowDetalle));
+  }
 
-            let index = e.target.value;
+  /**
+   * Deletes the current row
+   * @param {HTMLElement} rowDetalle
+   */
+  deleteRow(rowDetalle) {
+    rowDetalle.remove();
+  }
 
-            let rowIndex = e.target.getAttribute('row-index');
-            let label = document.querySelector(`#precio${rowIndex}`);
-            let item = this.dataList[index];
-            let precio = item.precio;
-            label.innerHTML = precio;
+  /**
+   * Returns a list of the rows' inputs' values
+   *
+   * @returns {[]}
+   */
+  getDetalle() {
+    let list = [];
 
-            let subtotal = document.querySelector(`#subtotal${rowIndex}`);
-            subtotal.innerHTML = precio;
+    for (var i = 1; i <= this.rowIndex; i++) {
+      //Get the element and values
+      const index = document.getElementById(`select${i}`).value;
+      let cantidad = document.querySelector(`#spinner${i}`).value;
 
-            let spinnerInput = document.querySelector(`#spinner${rowIndex}`)
-            spinnerInput.value = 1
-        });
+      let item = this.dataList[index];
 
-        //SPINNER ELEMENT
-        const spinnerInput = document.createElement('input');
-        spinnerInput.className = 'spinner'
-        spinnerInput.setAttribute('type', 'number')
-        spinnerInput.setAttribute('value', '1')
-        spinnerInput.setAttribute('min', '1')
-        spinnerInput.classList.add('readonly')
-        spinnerInput.setAttribute('row-index', this.rowIndex)
-        spinnerInput.id = `spinner${this.rowIndex}`;
-        rowDetalle.appendChild(spinnerInput)
+      let id = item.id;
+      let nombre = item.nombre;
+      let precio = item.precio;
+      cantidad = parseInt(cantidad);
 
-        const subtotal = document.createElement('p');
-        subtotal.classList = 'subtotal';
-        subtotal.id = `subtotal${this.rowIndex}`;
-        subtotal.innerText = '$';
-        rowDetalle.appendChild(subtotal);
+      //Calc subtotal
+      let subtotal = precio * cantidad;
 
+      const detalleRow = new DetalleRow();
+      detalleRow.id_producto = id;
+      detalleRow.nombre = nombre;
+      detalleRow.precio_unitario = precio;
+      detalleRow.cantidad = cantidad;
+      detalleRow.subtotal = subtotal;
 
-        spinnerInput.addEventListener('change', (e) => {
-
-            //Get the elements
-            let cantidad = e.target.value;
-            let rowIndex = e.target.getAttribute('row-index');
-            let subtotalTag = document.querySelector(`#subtotal${rowIndex}`);
-            let precioTag = document.querySelector(`#precio${rowIndex}`);
-
-            //Get element values and parse them
-            cantidad = parseInt(cantidad)
-            let precio = parseFloat(precioTag.innerHTML)
-            let subtotal = parseFloat(subtotalTag.innerHTML)
-
-            //Calc subtotal
-            subtotal = precio * cantidad;
-            console.log('precio:', precio, 'cantidad: ', cantidad, 'subtotal: ', subtotal)
-            //Insert de data
-            subtotalTag.innerHTML = subtotal;
-        });
-        
-        //DELETE BUTTTON ELEMENT
-        const deleteButton = document.createElement('button');
-        deleteButton.innerHTML = 'Delete';
-        rowDetalle.appendChild(deleteButton);
-        deleteButton.addEventListener('click', () => this.delete(rowDetalle));
-        
-
+      list.push(detalleRow);
     }
 
-    /**
-     * Deletes the current row
-     * @param {*} rowDetalle 
-     */
-    delete(rowDetalle) {
-        rowDetalle.remove();
-    }
-
+    return list;
+  }
 }
 
-customElements.define('detalle-component', DetalleComponent);
+customElements.define("detalle-component", DetalleComponent);

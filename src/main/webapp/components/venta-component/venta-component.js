@@ -1,106 +1,84 @@
-import { proveedores } from "../../datos_prueba.js";
-import { TableComponent } from "../table-component.js";
-import { ModalComponent } from "../modal-component.js";
+import { compras } from "../../datos_prueba.js";
 
-import { AltaProveedorComponent } from "./alta-proveedor-component.js";
-import { UpdateProveedorComponent } from "./update-proveedor-component.js";
-
-
-export class ProveedorComponent extends HTMLElement {
-
+export class VentaComponent extends HTMLElement {
   constructor() {
-
     super();
-    this.innerHTML = '<h1>Proveedor Component</h1>';
-
+    this.innerHTML = "<h1>Venta Component</h1>";
   }
 
   connectedCallback() {
+    for (let venta of compras) {
+      const card = document.createElement("div");
+      card.className = "card";
+      this.append(card);
 
-    const crearButton = document.createElement('button')
-    crearButton.className = 'create-button';
-    this.appendChild(crearButton)
-    crearButton.addEventListener('click', () => {
+      const row = document.createElement("div");
+      row.className = "venta-container";
+      card.append(row);
 
-      let form = new AltaProveedorComponent();
-      const modal = this.openModal()
-      modal.content.appendChild(form);
+      const id_col = document.createElement("div");
+      id_col.innerHTML = `id: ${venta.id_venta}`;
+      row.appendChild(id_col);
 
-    })
+      const id_cliente = document.createElement("div");
+      id_cliente.innerHTML = `id cliente:  ${venta.id_cliente}`;
+      row.appendChild(id_cliente);
 
+      const fecha_col = document.createElement("div");
+      fecha_col.innerHTML = `fecha: ${venta.fecha}`;
+      row.appendChild(fecha_col);
 
-    const table = new TableComponent();
-    const tags = ['#', 'nombre', 'telefono', 'direccion', 'email']
-    table.setHeaders(tags)
-    table.insertData(proveedores)
+      const total = document.createElement("div");
+      total.innerHTML = `total: ${venta.total}`;
+      row.appendChild(total);
 
-    //Adds funtionality to the buttons o the table
-    table.editButtons.forEach(btn => {
+      const detalleContainer = document.createElement("div");
+      detalleContainer.className = "detalle-container";
+      card.appendChild(detalleContainer);
 
-      btn.addEventListener('click', (event) => {
-
-        let button = event.target
-        let index = button.getAttribute("value")
-        index = parseInt(index)
-        const data = proveedores[index];
-
-        let form = new UpdateProveedorComponent(data);
-        const modal = this.openModal()
-        modal.content.appendChild(form);
-      })
-    })
-
-
-    table.deleteButtons.forEach(btn => {
-
-      btn.addEventListener('click', (event) => {
-
-        let button = event.target
-        let index = button.getAttribute("value")
-        index = parseInt(index)
-        const data = proveedores[index];
-        let confirmation = confirm(`Desea eliminar proveedor: ${data.nombre}`)
-
-        if (confirmation) {
-
-          console.log("data' deleted")
-
+      const verDetalleButton = document.createElement("button");
+      verDetalleButton.className = "collapsible";
+      detalleContainer.appendChild(verDetalleButton);
+      verDetalleButton.addEventListener("click", function () {
+        this.classList.toggle("active");
+        if (table.style.display === "block") {
+          table.style.display = "none";
+        } else {
+          table.style.display = "block";
         }
+      });
 
-        else {
-          console.log('canceled')
-        }
+      const table = document.createElement("table");
+      table.className = "table";
+      card.appendChild(table);
+      const thead = document.createElement("thead");
+      table.appendChild(thead);
+      const tbody = document.createElement("tbody");
+      table.appendChild(tbody);
+      const trhead = document.createElement("tr");
+      thead.appendChild(trhead);
 
-
-      })
-    })
-
-    this.appendChild(table)
-
-  }
-
-
-
-  openModal() {
-
-    const modal = new ModalComponent();
-    modal.style.display = "block";
-    this.appendChild(modal)
-
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function (event) {
-      if (event.target == modal) {
-        modal.style.display = "none";
-        modal.remove()
+      const headers = ["Producto", "Precio", "Cantidad", "Subtotal"];
+      for (let tag of headers) {
+        const th = document.createElement("th");
+        th.innerHTML = tag;
+        trhead.appendChild(th);
       }
 
+      for (let row of venta.detalle) {
+        console.log(row);
+
+        const tr = document.createElement("tr");
+        tbody.appendChild(tr);
+
+        for (let key in row) {
+          const td = document.createElement("td");
+          td.innerHTML = row[key];
+
+          tr.appendChild(td);
+        }
+      }
     }
-
-    return modal
   }
-
-
-
 }
-
-customElements.define("proveedor-component", ProveedorComponent);
+customElements.define("venta-component", VentaComponent);

@@ -1,6 +1,7 @@
-@import '/components/forms.css';
-@import '/components/table-component.css';
-@import '/components/modal-component.css';
+@import '/src/main/webapp/components/forms.css';
+@import '/src/main/webapp/components/table-component.css';
+@import '/src/main/webapp/components/modal-component.css';
+@import '/src/main/webapp/components/venta-component/venta-component.css';
 
 producto-component, proveedor-component, cliente-component {
 
@@ -32,6 +33,7 @@ body{
     margin: auto; /* Center the image horizontally */
     max-width: 100%;
     height: auto;
+
   }
 
 /* section */
@@ -63,8 +65,15 @@ section{
 }
   
   .navbar-logo img {
-    height: 40px;
+    height: inherit;
     margin-right: 50px;
+    max-height: 50px; 
+    border-radius: 10px;
+    border: #333;
+    border-width: 3px;
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.4);
+
   }
   
   .navbar-links {
@@ -141,8 +150,12 @@ nav a{
 
 nav a:hover{
 
-  background: antiquewhite;
-  color: #333;
+  
+  border-radius: 5px;
   font-size: 21px;
+  border: 0 2px 4px rgba(255, 255, 255, 0.4);;
+  border-style: solid;
+  border-width: 1px;
+  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.4);
   
 }

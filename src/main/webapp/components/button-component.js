@@ -1,25 +1,19 @@
-export class ButtonComponent extends HTMLElement{
+export class ButtonComponent extends HTMLElement {
+  img;
 
-    img;
-    
-    constructor(){
-        
-        super()
-        
-           
-    }
+  constructor() {
+    super();
+  }
 
-    connectedCallback(){
+  connectedCallback() {
+    console.log("button inserted");
+  }
 
-        console.log('button inserted')
-    }
-
-    setImg(src){
-        this.img = document.createElement('img');
-        this.img.setAttribute('src', src);
-        this.appendChild(this.img);
-    }
-      
+  setImg(src) {
+    this.img = document.createElement("img");
+    this.img.setAttribute("src", src);
+    this.appendChild(this.img);
+  }
 }
 
 customElements.define("button-component", ButtonComponent);

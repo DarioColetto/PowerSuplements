@@ -1,112 +1,118 @@
 import { clientes } from "../../datos_prueba.js";
 import { TableComponent } from "../table-component.js";
 import { ModalComponent } from "../modal-component.js";
+import { AltaClienteComponent } from "./alta-cliente-component.js";
+import { UpdateClienteComponent } from "./update-cliente-component.js";
 
-import { AltaClienteComponent } from "./alta-cliente-component.js"; 
-import {UpdateClienteComponent} from "./update-cliente-component.js"; 
-
+/**
+ * Represents the component for display clients.
+ * @class
+ * @extends HTMLElement
+ */
 export class ClienteComponent extends HTMLElement {
-
   constructor() {
-    
     super();
-
-    this.innerHTML = '<h1>Cliente Component</h1>';
-  
+    this.innerHTML = "<h1>Cliente Component</h1>";
   }
-   connectedCallback() {
 
-    console.log('Producto Component')
-    
+  connectedCallback() {
+    // Create Button
+    const crearButton = document.createElement("button");
+    crearButton.className = "create-button";
+    this.appendChild(crearButton);
 
-    const crearButton = document.createElement('button')
-    crearButton.className = 'create-button';
-    this.appendChild(crearButton)
-    crearButton.addEventListener('click', () => {
-
+    /**
+     * Event listener for the create button click event.
+     * Opens a modal window with the form for creating a new client.
+     * @event crearButton#click
+     */
+    crearButton.addEventListener("click", () => {
       let form = new AltaClienteComponent();
-      const modal = this.openModal()
+      const modal = this.openModal();
       modal.content.appendChild(form);
+    });
 
-    })
-
-
+    // Table Component
     const table = new TableComponent();
-    //console.log(table)
-    const tags = ['#', 'nombre', 'telefono', 'direccion', 'email']
-    table.setHeaders(tags)
-    table.insertData(clientes)
+    const tags = ["#", "nombre", "telefono", "direccion", "email"];
+    table.setHeaders(tags);
+    table.insertData(clientes);
 
-    //Adds funtionality to the buttons o the table
-    table.editButtons.forEach(btn => {
-
-      btn.addEventListener('click', (event) => {
-
-        let button = event.target
-        let index = button.getAttribute("value")
-        index = parseInt(index)
+    // Edit Buttons
+    /**
+     * Event listener for the click event on edit buttons.
+     * Retrieves the index of the clicked button and opens a modal window with the form for updating the corresponding client.
+     * @event btn#click
+     * @param {Event} event - The click event.
+     */
+    table.editButtons.forEach((btn) => {
+      btn.addEventListener("click", (event) => {
+        let button = event.target;
+        let index = button.getAttribute("value");
+        index = parseInt(index);
         const data = clientes[index];
 
         let form = new UpdateClienteComponent(data);
-        const modal = this.openModal()
-      modal.content.appendChild(form);
-      })
-    })
+        const modal = this.openModal();
+        modal.content.appendChild(form);
+      });
+    });
 
-
-    table.deleteButtons.forEach(btn => {
-
-      btn.addEventListener('click', (event) => {
-
-        let button = event.target
-        let index = button.getAttribute("value")
-        index = parseInt(index)
+    // Delete Buttons
+    /**
+     * Event listener for the click event on delete buttons.
+     * Retrieves the index of the clicked button, prompts for confirmation to delete the corresponding client,
+     * and logs the result to the console.
+     * @event btn#click
+     * @param {Event} event - The click event.
+     */
+    table.deleteButtons.forEach((btn) => {
+      btn.addEventListener("click", (event) => {
+        let button = event.target;
+        let index = button.getAttribute("value");
+        index = parseInt(index);
         const data = clientes[index];
-        let confirmation = confirm(`Desea eliminar cliente : ${data.nombre}`)
+        let confirmation = confirm(`Desea eliminar cliente : ${data.nombre}`);
 
         if (confirmation) {
-
-          console.log("data' deleted")
-
+          console.log("data' deleted");
+        } else {
+          console.log("canceled");
         }
+      });
+    });
 
-        else {
-          console.log('canceled')
-        }
-
-
-      })
-    })
-
-    this.appendChild(table)
-
+    this.appendChild(table);
   }
 
-
-
+  /**
+   * Opens a modal window.
+   * @returns {ModalComponent} The modal window component.
+   */
   openModal() {
-
     const modal = new ModalComponent();
     modal.style.display = "block";
-    this.appendChild(modal)
+    this.appendChild(modal);
 
-    // When the user clicks anywhere outside of the modal, close it
+    /**
+     * Event listener for closing the modal window when clicking outside.
+     * @event window#click
+     */
     window.onclick = function (event) {
       if (event.target == modal) {
         modal.style.display = "none";
-        modal.remove()
+        modal.remove();
       }
+    };
 
-    }
-
-    return modal
+    return modal;
   }
-
-
-
 }
 
-customElements.define('cliente-component', ClienteComponent)
-  
-  
-  
+/**
+ * Defines the custom element for the ClienteComponent.
+ * @alias cliente-component
+ * @memberof ClienteComponent
+ * @type {customElements}
+ */
+customElements.define("cliente-component", ClienteComponent);

@@ -82,26 +82,26 @@ let proveedores = [
 const compras = [
 
   {
-    "id-venta": 1,
+    "id_venta": 1,
     "id_cliente": 1,
-    "monto_final": 45.5,
+    "total": 45.5,
     "fecha": "2023-04-12",
     "detalle": [
-      { "producto:": 'Whey Protein', 'precio': 40.5, "cantidad": 1 },
-      { "producto:": 'Barrita', 'precio': 10.5, "cantidad": 1 }
+      { "nombre": 'Whey Protein', "precio": 40.5, "cantidad": 1 , "subtotal":40.5},
+      { "nombre": 'Barrita', "precio": 10.5, "cantidad": 1,"subtotal":10.5 }
     ]
   },
   {
-    "id-venta": 2,
+    "id_venta": 2,
     "id_cliente": 2,
-    "monto_final": 30.0,
+    "total": 30.0,
     "fecha": "2023-04-12",
     "detalle": [
-      { "producto:": 'Bcca', 'precio': 10.0, "cantidad": 2 },
-      { "producto:": 'Viraminas', 'precio': 10.0, "cantidad": 1 }
+      { "nombre": 'Bcca', "precio": 10.0, "cantidad": 2, "subtotal":20 },
+      { "nombre": 'Viraminas', "precio": 10.0, "cantidad": 1, "subtotal":10 }
     ]
   }
 
 ]
 
-export { productos, clientes, proveedores }
+export { productos, clientes, proveedores, compras }
