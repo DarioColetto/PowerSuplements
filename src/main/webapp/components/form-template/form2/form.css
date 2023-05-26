@@ -1,75 +1,82 @@
 main {
-    padding: 50px;
-  }
-  fieldset {
-    border: none;
-  }
-  legend {
-    font-size: 24px;
-    font-weight: bold;
-  }
-  input, button, label {
-   display: block;
-  }
-  input {
-    width: 400px;
-    height: 30px;
-    padding: 15px;
-    font-size: 16px;
-    outline: none;
-    border: 2px solid var(--grey);
-    margin-bottom: 30px;
-  }
+	padding: 50px;
+}
 
-  input:focus {
-    border: 2px solid black;
-  }
-  /*
+fieldset {
+	border: none;
+}
+
+legend {
+	font-size: 24px;
+	font-weight: bold;
+}
+
+input, button, label {
+	display: block;
+}
+
+input {
+	width: 400px;
+	height: 30px;
+	padding: 15px;
+	font-size: 16px;
+	outline: none;
+	border: 2px solid var(- -grey);
+	margin-bottom: 30px;
+}
+
+input:focus {
+	border: 2px solid black;
+}
+/*
   input:valid {
     border: 2px solid green;
   }
   input:invalid {
     border: 2px solid red;
   }*/
+input:in-range {
+	border: 2px solid green;
+}
 
-  input:in-range {
-    border: 2px solid green;
-  }
-  input:out-of-range {
-    border: 2px solid red;
-  }
+input:out-of-range {
+	border: 2px solid red;
+}
 
-  .error-message, .success-message {
-  display: none;
+.error-message, .success-message {
+	display: none;
 }
 
 .error-message {
-  color: red;
+	color: red;
 }
+
 .success-message {
-  color: green;
-}/*
+	color: green;
+} /*
 input:invalid + .error-message,
 input:valid + .error-message + .success-message {
   display: block;
 }
 */
 input:not(:placeholder-shown):not(:focus):valid {
-    border: 2px solid green;
-  }
-  input:not(:placeholder-shown):not(:focus):invalid {
-    border: 2px solid red;
-  }
-  input:not(:placeholder-shown):not(:focus):invalid + .error-message,
-  input:not(:placeholder-shown):not(:focus):valid + .error-message + .success-message {
-    display: block;
-  }
+	border: 2px solid green;
+}
 
-  [type="submit"] {
-    width: 150px;
-    height: 30px;
-    margin-top: 20px;
-    border: none;
-    background-color: blue;
-    cursor: pointer;
-  }
+input:not(:placeholder-shown):not(:focus):invalid {
+	border: 2px solid red;
+}
+
+input:not(:placeholder-shown):not(:focus):invalid+.error-message, input:not(:placeholder-shown):not(:focus):valid+.error-message+.success-message
+	{
+	display: block;
+}
+
+[type="submit"] {
+	width: 150px;
+	height: 30px;
+	margin-top: 20px;
+	border: none;
+	background-color: blue;
+	cursor: pointer;
+}

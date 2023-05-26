@@ -1,117 +1,117 @@
 .table {
-  
-    background-color: #EEEEEE;
-    width: fit-content;
-    text-align: left;
-    border-collapse: collapse;
-    margin: 5px, 10px, 0px, 10px;
-    
-  
-  }
-  
-  .table td,
-  .table th {
-    border: 1px solid #ffffff;
-    padding: 4px 3px;
-  
-  }
+	background-color: #EEEEEE;
+	width: fit-content;
+	text-align: left;
+	border-collapse: collapse;
+	margin: 5px, 10px, 0px, 10px;
+	width: 100%;
+	table-layout: fixed;
+	animation: tableFadeIn 0.5s ease-in-out forwards;
+}
 
-  
-  th {
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-  
-  .table tr:nth-child(even) {
-    background: #D0E4F5;
-  }
-  
-  .table thead {
-    background: #CB07B3;
-    background: -moz-linear-gradient(top, #d687cd 0%, #d01fba 66%, #CB07B3 100%);
-    background: -webkit-linear-gradient(top, #d687cd 0%, #d01fba 66%, #CB07B3 100%);
-    background: linear-gradient(to bottom, #d687cd 0%, #d01fba 66%, #CB07B3 100%);
-  
-  }
-  
-  .table thead th {
-    font-size: 15px;
-    font-weight: bold;
-    color: #FFFFFF;
-    text-align: left;
-    border-left: 1px solid #D0E4F5;
-    text-transform: uppercase;
-  }
-  
-  .table thead th:first-child {
-    border-left: none;
-  }
-  
+@keyframes tableFadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
 
-  
-  .table tfoot .links {
-    text-align: right;
-  }
-  
-  .table tfoot .links a {
-    display: inline-block;
-    background: #1C6EA4;
-    color: #FFFFFF;
-    padding: 2px 8px;
-    border-radius: 5px;
-  }
-  
-  .box-button {
-    display: flex;
-    flex-direction: row;
-    align-self: center;
-    justify-self: center;
-    justify-content: space-evenly;
-    margin: 8px;
-  }
-  
-  
-  .button-box{
-    display: flex;
-    margin-left: 5px;
-    justify-content: space-between;
-    margin-top: 5px ;
-  }
-  
-  .edit-button, .delete-button{
-  
-    width: 30px;
-    height: 30px;
-    border-style: none;
-    box-shadow: 0 0 5px #0085ff;
-    border-radius: 5px;
-  
-  }
-  
-  .edit-button{
-    
-    background-image: url('/assets/bottons/editar.png');
-    background-size: contain;
-    background-position: center;
-    margin-right: 5px;
-  }
-  
-  .delete-button{
-    background: inherit;
-    background-image: url('/assets/bottons/basura.png');
-    background-size: cover;
-    background-position: center;
-  
-  }
-  
-  .edit-button:hover {
-    background-color: #ffe600;
-    border-radius: 5px;
-  }
-  
-  .delete-button:hover{
-    background-color: #ff0000;
-    border-radius: 5px;
-  }
-  
-  
+.table td, .table th {
+	border: 1px solid #ffffff;
+	padding: 4px 3px;
+}
+
+
+th {
+	padding-left: 10px;
+	padding-right: 10px;
+	width: 100%;
+}
+
+.table tr:nth-child(even) {
+	background: #D0E4F5;
+}
+
+.table thead {
+	background: #CB07B3;
+	background: -moz-linear-gradient(top, #d687cd 0%, #d01fba 66%, #CB07B3 100%);
+	background: -webkit-linear-gradient(top, #d687cd 0%, #d01fba 66%, #CB07B3 100%);
+	background: linear-gradient(to bottom, #d687cd 0%, #d01fba 66%, #CB07B3 100%);
+}
+
+.table thead th {
+	font-size: 15px;
+	font-weight: bold;
+	color: #FFFFFF;
+	text-align: left;
+	border-left: 1px solid #D0E4F5;
+	text-transform: uppercase;
+}
+
+.table thead th:first-child {
+	border-left: none;
+}
+
+.table tfoot .links {
+	text-align: right;
+}
+
+.table tfoot .links a {
+	display: inline-block;
+	background: #1C6EA4;
+	color: #FFFFFF;
+	padding: 2px 8px;
+	border-radius: 5px;
+}
+
+.box-button {
+	display: flex;
+	flex-direction: row;
+	align-self: center;
+	justify-self: center;
+	justify-content: space-evenly;
+	margin: 8px;
+}
+
+.button-box {
+	display: flex;
+	margin-left: 5px;
+	justify-content: space-between;
+	margin-top: 5px;
+}
+
+.edit-button, .delete-button {
+	width: 30px;
+	height: 30px;
+	border-style: none;
+	box-shadow: 0 0 5px #0085ff;
+	border-radius: 5px;
+}
+
+.edit-button {
+	background-image:
+		url('http://localhost:8080/PowerSuplements/assets/bottons/editar.png');
+	background-size: contain;
+	background-position: center;
+	margin-right: 5px;
+}
+
+.delete-button {
+	background: inherit;
+	background-image:
+		url('http://localhost:8080/PowerSuplements/assets/bottons/basura.png');
+	background-size: cover;
+	background-position: center;
+}
+
+.edit-button:hover {
+	background-color: #ffe600;
+	border-radius: 5px;
+}
+
+.delete-button:hover {
+	background-color: #ff0000;
+	border-radius: 5px;
+}

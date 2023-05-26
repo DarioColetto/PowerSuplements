@@ -1,122 +1,144 @@
-
-
-form{
-
-  font-family: Tahoma, Geneva, sans-serif;
-  letter-spacing: 0px;
-  word-spacing: 2px;
-  color: #000000;
-  font-style: normal;
-  font-variant: normal;
-  text-transform: none;
-  
-  }
+form {
+	font-family: Tahoma, Geneva, sans-serif;
+	letter-spacing: 0px;
+	word-spacing: 2px;
+	color: #000000;
+	font-style: normal;
+	font-variant: normal;
+	text-transform: none;
+}
 
 .form-group {
-    margin-bottom: 10px;
-    display: flex;
-    flex-direction: column;
-    margin: 4px;
-  }
+	margin-bottom: 10px;
+	display: flex;
+	flex-direction: column;
+	margin: 4px;
+}
 
-  legend{
-    background-color: #264653;
-    color: white;
-    padding: 5px 10px;
-    font-weight: bold;
+legend {
+	background-color: #264653;
+	color: white;
+	padding: 5px 10px;
+	font-weight: bold;
 }
 
 form fieldset {
-  display: block;
-  background-color: #e9c46a;
-  border: 3px solid #264653;
+	display: block;;
+	border: 3px solid #264653;
+	background: #CB07B3;
+	background: rgb(51,39,255);
+
+    background: linear-gradient(90deg, rgba(51,39,255,1) 0%, rgba(85,85,255,1) 20%, rgba(130,8,142,1) 40%, rgba(255,3,153,1) 60%, rgba(180,147,76,1) 80%, rgba(255,222,0,1) 100%);
+	margin-bottom: 5px;
+	padding: 10px;
 }
 
-.group-detalle{
-
-  display: flex;
-  flex-direction: row;
-  margin-bottom: 10px;
-  width: fit-content;
+.group-detalle {
+	display: flex;
+	flex-direction: row;
+	margin-bottom: 10px;
+	width: fit-content;
 }
-.precio-label{
- 
-  width: 50px;
+
+.precio-label {
+	width: 50px;
 }
 
 .detalle {
-
-  background-color: #e9c46a;
-  border: 3px solid #264653;
+	background-color: #e9c46a;
+	border: 3px solid #264653;
 }
 
-.selectProducto, .precio-label, .cantidad, .subTotal{
-
-  margin-right: 10px;
+.selectProducto, .precio-label, .cantidad, .subTotal {
+	margin-right: 10px;
 }
 
-  
-  label {
-    
-    width: 120px;
-  }
-  
-  input {
-    
-    max-width: 50%;
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 5px;
-    border: 2px solid #ccc;
-    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-  }
-  
-  /*Validations*/
-  input:focus {
-    outline: none;
-    border-color: #0085ff;
-    box-shadow: 0 0 5px #0085ff;
-  }
-  
-  input:valid {
-    border-color: #3cba54;
-  }
-  
-  input:invalid {
-    border-color: #db3236;
-  }
-  
-  input:valid:focus {
-    border-color: #0085ff;
-  }
-  
-  input:invalid:focus {
-    border-color: #db3236;
-  }
-  
-  input:placeholder-shown {
-    border-color: #0085ff;
-  }
-  
-  .button-box{
+label {
+	width: 120px;
+}
 
-    display: block;
-    width: 40%;
+input {
+	max-width: 50%;
+	padding: 10px;
+	font-size: 16px;
+	border-radius: 5px;
+	border: 2px solid #ccc;
+	transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
 
-  }
+/*Validations*/
+input:focus {
+	outline: none;
+	border-color: #0085ff;
+	box-shadow: 0 0 5px #0085ff;
+}
 
-  .submitButton{
-      background-color: #058800;
-    color: white;
-    padding: 5px;
-    width: 100px; 
+input:valid {
+	border-color: #3cba54;
+}
 
-  }
+input:invalid {
+	border-color: #db3236;
+}
 
-  .cancelButton{
+input:valid:focus {
+	border-color: #0085ff;
+}
 
-    background-color: #ff8800;
-    color: white;
-    padding: 5px;
-    width: 100px;     
+input:invalid:focus {
+	border-color: #db3236;
+}
+
+input:placeholder-shown {
+	border-color: #0085ff;
+}
+
+.button-box {
+	display: block;
+	width: 40%;
+}
+
+.submitButton {
+	box-shadow:inset 0px 1px 0px 0px #caefab;
+	background:linear-gradient(to bottom, #77d42a 5%, #5cb811 100%);
+	background-color:#77d42a;
+	border-radius:6px;
+	border:1px solid #268a16;
+	display:inline-block;
+	cursor:pointer;
+	color:#306108;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #aade7c;
+}
+
+.submitButton:hover{
+	background:linear-gradient(to bottom, #5cb811 5%, #77d42a 100%);
+	background-color:#5cb811;
+}
+
+.cancelButton {
+	box-shadow:inset 0px 1px 0px 0px #f5978e;
+	background:linear-gradient(to bottom, #f24537 5%, #c62d1f 100%);
+	background-color:#f24537;
+	border-radius:6px;
+	border:1px solid #d02718;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #810e05;
+}
+
+.cancelButton:hover{
+
+	background:linear-gradient(to bottom, #c62d1f 5%, #f24537 100%);
+	background-color:#c62d1f;
 }

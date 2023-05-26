@@ -17,62 +17,62 @@ import model.Proveedor;
 
 class TestProveedorDao {
 
-	
+
 	static ProveedorDao proveedorDao;
 
 	@BeforeEach
 	void init() throws SQLException {
-		
+
 		proveedorDao =  new ProveedorDao();
 	}
-	
+
 	@Test
 	@DisplayName("Buscar por Id")
 	void BuscarUnoByIdTest() throws SQLException {
-		
-		
+
+
 		Proveedor proveedorPrueba = proveedorDao.getById(1);
-		
+
 		assertEquals(Proveedor.class, proveedorPrueba.getClass() );
-		
+
 		System.out.println(proveedorPrueba.toString());
 	}
-	
+
 	@Test
 	@DisplayName("Buscar Todos")
 	void BuscarTodosTest() throws SQLException {
-		
+
 		ArrayList<Proveedor> proveedors = proveedorDao.getAll();
-		
+
 		assertEquals(ArrayList.class, proveedors.getClass());
 		assertTrue(proveedors.size() > 0);
-		
+
 		for(Proveedor proveedor : proveedors) {
-			
+
 			System.out.println(proveedor.toString());
 		}
-		
+
 	}
-	
+
 	/*
 	@Test
 	void ActualizarTest() throws SQLException {
-		
+
 		Proveedor proveedorPrueba = new Proveedor(1, "S345", "Pepe", "34556", "Calle1", "pepe@gmail.com");
-		
+
 		proveedorDao.actualizar(1,proveedorPrueba);
 	}
-	
+
 	*/
-	
+
 	@AfterEach
 	public void closeConection() throws SQLException {
-		
+
 		Connection con = proveedorDao.getConnection();
 		assertTrue(con.isClosed());
-		
+
 	}
 
 
-	
+
 }

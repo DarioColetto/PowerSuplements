@@ -1,30 +1,30 @@
 /**
- * 
+ *
  */
 package utils;
 
 /**
- * @author Dario Coletto 
+ * @author Dario Coletto
  *
  */
 public class Utils {
-	
-	
+
+
 		/**
-		 * Elimina la coma del final de una cadena
+		 * Remove the trailing comma
 		 * @param string
-		 * @return
+		 * @return String
 		 */
-		public static String delComa(String string) {
-			
+		public static String deleteComa(String string) {
+
 			StringBuilder stringBuilder = new StringBuilder(string);
 			stringBuilder.setCharAt(string.length()-1, ' ');
-			
+
 			return stringBuilder.toString();
 		}
 
-	
-	
+
+
 
 
 }

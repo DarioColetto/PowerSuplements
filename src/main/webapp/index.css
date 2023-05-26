@@ -1,161 +1,285 @@
-@import '/src/main/webapp/components/forms.css';
-@import '/src/main/webapp/components/table-component.css';
-@import '/src/main/webapp/components/modal-component.css';
-@import '/src/main/webapp/components/venta-component/venta-component.css';
+@import url("components/forms.css");
 
-producto-component, proveedor-component, cliente-component {
+@import url("components/table-component.css");
 
-    display: flex;
-    flex-direction: column;
-    margin-left: 5%;
+@import url("components/modal-component.css");
+
+@import url("components/dashboard.css");
+
+@import url("components/login-component/login-component.css");
+
+home-component, producto-component, proveedor-component, cliente-component,
+	venta-component {
+	display: flex;
+	flex-direction: column;
+	margin-left: 5%;
+	margin-right: 5%;
 }
+
+
 /*Header*/
-
-body{
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    margin: auto;
+body {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	margin: auto;
 }
 
-.banner{
-    
-    max-width: 100%;
-    width: 80%; /* Set the width of the container */
-    margin: 0 auto; /* Center the container horizontally */
-    padding: 10px;
-    
+.banner {
+	max-width: 100%;
+	width: 80%; /* Set the width of the container */
+	margin: 0 auto; /* Center the container horizontally */
+	padding: 10px;
 }
-
 
 #logo {
-    display: block; /* Set the display property to block */
-    margin: auto; /* Center the image horizontally */
-    max-width: 100%;
-    height: auto;
-
-  }
+	display: block; /* Set the display property to block */
+	margin: auto; /* Center the image horizontally */
+	max-width: 100%;
+	height: auto;
+}
 
 /* section */
-
-section{
-    display: flex;
-    max-width: 100;
-    max-height: 100%;
-    height: auto;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    
+section {
+	display: flex;
+	max-width: 100;
+	max-height: 100%;
+	height: auto;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
 }
 
 /* nav bar */
-
-
 .navbar {
-    display: flex;
-    align-items: center;
-    background-color: #333;
-    color: #fff;
-    height: 60px;
-    padding: 0 20px;
-    font-size: 20px;
-    text-transform: uppercase;
-    font-family: sans-serif;
-}
-  
-  .navbar-logo img {
-    height: inherit;
-    margin-right: 50px;
-    max-height: 50px; 
-    border-radius: 10px;
-    border: #333;
-    border-width: 3px;
-    background: #fff;
-    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.4);
-
-  }
-  
-  .navbar-links {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .navbar-links a {
-    color: #fff;
-    text-decoration: none;
-    margin: 0 20px;
-  }
-  
-  /* footer */
-  .footer {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    background-color: #333;
-    color: #fff;
-    height: 60px;
-    padding: 0 20px;
-    margin-top: auto;
-    
-  }
-  
-  .footer-author {
-    font-size: 14px;
-  }
-  
-  .footer-social a {
-    color: #fff;
-    text-decoration: none;
-    margin-left: 10px;
-  }
-  
-  .footer-social i {
-    font-size: 20px;
-  }
-
-  svg {
-    color : rgb(247, 247, 247);
+	
+	align-items: center;
+	justify-content: space-between;
+	background: rgb(51,39,255);
+    background: linear-gradient(90deg, rgba(51,39,255,1) 0%, rgba(85,85,255,1) 20%, rgba(130,8,142,1) 40%, rgba(255,3,153,1) 60%, rgba(180,147,76,1) 80%, rgba(255,222,0,1) 100%);
+	color: #fff;
+	height: 60px;
+	padding: 0 20px;
+	font-size: 20px;
+	text-transform: uppercase;
+	font-family: sans-serif;
 }
 
+.navbar-logo img {
+	height: inherit;
+	max-height: 50px;
+	border-radius: 10px;
+	border: #333;
+	border-width: 3px;
+	background: #fff;
+	box-shadow: 0 2px 4px rgba(255, 255, 255, 0.4);
+}
 
+#logout-button{
+	
+	display: none;
+	background-image:
+		url('http://localhost:8080/PowerSuplements/assets/bottons/logout.png');
+		/* url('assets/bottons/logout.png'); */
+		background-color: #e600cb1e;
+		background-size: contain;
+		background-position: center;
+		background-repeat: no-repeat;
+		height: inherit;
+		max-height: 50px;
+		width: 10vh;
+		border-radius: 10px;
+		border: #333;
+		border-width: 3px;
+		box-shadow: 0 2px 4px rgba(255, 255, 255, 0.4);
+		
+
+		margin-right: 5px;
+		
+}
+
+#logout-button:hover{
+	background-color: #fa44e5;
+	border-radius: 5px;
+	box-shadow: #444;
+	
+}
+
+.navbar-links {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.navbar-links a {
+	color: #fff;
+	text-decoration: none;
+	margin: 0 20px;
+}
+
+/* footer */
+.footer {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	background-color: #333;
+	color: #fff;
+	height: 60px;
+	padding: 0 20px;
+	margin-top: auto;
+}
+
+.footer-author {
+	font-size: 14px;
+}
+
+.footer-social a {
+	color: #fff;
+	text-decoration: none;
+	margin-left: 10px;
+}
+
+.footer-social i {
+	font-size: 20px;
+}
+
+svg {
+	color: rgb(247, 247, 247);
+}
 
 .create-button {
-
-  width: 30px;
-  height: 30px;
-  border-style: none;
-  box-shadow: 0 0 5px #0085ff;
-  border-radius: 5px;
-  background-image: url('/assets/bottons/add.png');
-  background-size: contain;
-  background-position: center;
-  margin-right: 5px;
-  border-color: #0085ff;
-  box-shadow: 0 0 5px #0085ff;
-  margin-bottom: 10px;
-  padding: 5px;
-
+	width: 30px;
+	height: 30px;
+	border-style: none;
+	box-shadow: 0 0 5px #0085ff;
+	border-radius: 5px;
+	background-image:
+		url('http://localhost:8080/PowerSuplements/assets/bottons/add.png');
+	background-size: contain;
+	background-position: center;
+	margin-right: 5px;
+	border-color: #0085ff;
+	box-shadow: 0 0 5px #0085ff;
+	margin-bottom: 10px;
+	padding: 5px;
 }
 
 .create-button:hover {
-  border-radius: 5px;
-  background-color: #ff5e01;
+	border-radius: 5px;
+	background-color: #ff5e01;
 }
 
-nav a{
-  padding: 5px;
+nav a {
+	padding: 5px;
 }
 
-nav a:hover{
+nav a:hover {
+	border-radius: 5px;
+	font-size: 21px;
+	border: 0 2px 4px rgba(255, 255, 255, 0.4);;
+	border-style: solid;
+	border-width: 1px;
+	box-shadow: 0 2px 4px rgba(255, 255, 255, 0.4);
+}
 
-  
-  border-radius: 5px;
-  font-size: 21px;
-  border: 0 2px 4px rgba(255, 255, 255, 0.4);;
-  border-style: solid;
-  border-width: 1px;
-  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.4);
-  
+.card {
+	background: rgb(51,39,255);
+    background: linear-gradient(90deg, rgba(51,39,255,1) 0%, rgba(85,85,255,1) 20%, rgba(130,8,142,1) 40%, rgba(255,3,153,1) 60%, rgba(180,147,76,1) 80%, rgba(255,222,0,1) 100%);
+	margin-bottom: 5px;
+	padding: 10px;
+	position: relative;
+	left: -200px;
+	animation: slideIn 0.5s ease-in-out forwards, fadeIn 0.5s ease-in-out forwards;
+}
+
+
+@keyframes slideIn {
+	0% {
+		left: -200px;
+	}
+	100% {
+		left: 0;
+	}
+}
+
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+.venta-container, .detalle {
+	display: flex;
+	justify-content: space-between;
+}
+
+.venta-container {
+	margin-left: 5px;
+	margin-bottom: 5px;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.detalle-container {
+	display: flex;
+	flex-direction: column;
+}
+
+.detalle {
+	display: flex;
+}
+
+/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+	background-color: #eee;
+	color: #444;
+	cursor: pointer;
+	max-height: fit-content;
+	width: fit-content;
+	border: none;
+	text-align: center;
+	outline: none;
+}
+
+.collapsible:after {
+	content: '\25b6';
+	color: #CB07B3;
+	font-weight: bold;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+	background-color: #ccc;
+}
+
+.active:after {
+	content: "\25bc";
+}
+/* Style the collapsible content. Note: hidden by default */
+table {
+	display: none;
+	overflow: hidden;
+}
+
+alta-venta {
+	display: flex;
+	flex-direction: column;
+}
+
+.spinner {
+	width: 3em;
+}
+
+.precio-label, .subtotal {
+	margin-left: 5px;
+	margin-right: 5px;
+	font-weight: bold;
+	width: 5em;
+}
+
+.create-button:hover {
+	border-radius: 5px;
+	background-color: #ff5e01;
 }

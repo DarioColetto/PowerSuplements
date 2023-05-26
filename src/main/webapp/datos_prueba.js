@@ -1,3 +1,4 @@
+
 let productos = [
   {
     "id_producto": 1,

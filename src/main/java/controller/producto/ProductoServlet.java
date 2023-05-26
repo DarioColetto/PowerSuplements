@@ -27,77 +27,66 @@ public class ProductoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private Gson gson;
-	String json;
-	ProductoDao productoDao;
+	private String json;
+	private ProductoDao productoDao;
 
 	@Override
 	public void init() throws ServletException {
 
+		System.out.println("Producto Servlet initialized");
+
 		gson = new Gson();
-		try {
-
-			productoDao = new ProductoDao();
-
-		} catch (SQLException e) {
-
-			e.printStackTrace();
-		}
 	}
 
 	/**
 	 * Refers to the corresponding method of the servlet: doGet, doPost, doPut, doDelete, according to the method of the request
 	 */
-	protected void service(HttpServletRequest request, HttpServletResponse response) 
+	@Override
+	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-        if (request.getMethod().equals("OPTIONS")) {
-            // Set the CORS headers
 
 
-            // Return a successful response
-            response.setStatus(HttpServletResponse.SC_OK);
-            return;
-        }
-        
-    
-		
 		String method = request.getMethod();
-		
+
 		String pathInfo = request.getPathInfo();
 
 		// Uncomment to chek pathInfo
 		System.out.println(pathInfo);
-		
+
 		if (method.equals("GET") && (pathInfo == null || pathInfo.equals("/") )){
-				
-				doGet(request, response);
-				
+
+			System.out.println(method);
+			doGet(request, response);
+
 		}
-		
+
 		else if(method.equals("GET") && (pathInfo == null || pathInfo.equals("/getbyid") )) {
-			
-			doGetById(request, response);			
+
+			System.out.println(method);
+			doGetById(request, response);
 		}
-		
+
 
 		else if (method.equals("POST") && (pathInfo == null || pathInfo.equals("/") )) {
-			
+
 			doPost(request, response);
-			
-		} 
-		
-		else if (method.equals("PUT") && (pathInfo == null || pathInfo.equals("/") )) {
-			
-			doPut(request, response);
-			
+
 		}
-		
+
+		else if (method.equals("PUT") && (pathInfo == null || pathInfo.equals("/") )) {
+
+			System.out.println(method);
+			doPut(request, response);
+
+		}
+
 		else if (method.equals("DELETE") && (pathInfo == null || pathInfo.equals("/") )) {
-				
-				doDelete(request, response);
-			
+
+			System.out.println(method);
+			doDelete(request, response);
+
 	   } else {
-	    // Servlet doesn't currently support 
+	    // Servlet doesn't currently support
 	    // other types of request.
 	    String errMsg = "Method Not Supported";
 	    response.sendError(HttpServletResponse.SC_NOT_IMPLEMENTED, errMsg);
@@ -107,28 +96,22 @@ public class ProductoServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-				
-		
+
 			try {
-				
+
 				productoDao = new ProductoDao();
-				
+
 				List<Producto> productos = productoDao.getAll();
 
-				System.out.println(productos);
+				//System.out.println(productos);
 
 				json = gson.toJson(productos);
 
-				System.out.println(json);
-				
-				// response.getWriter().append(json);
-				
-				response.getWriter().println(json);
-				
 				response.setContentType("application/json");
-				// request.setAttribute("productos", productos);
-				// request.getRequestDispatcher("/WEB-INF/views/productos.jsp").forward(request,
-				// response);
+
+				response.getWriter().println(json);
+
+
 
 			} catch (SQLException e) {
 
@@ -136,11 +119,11 @@ public class ProductoServlet extends HttpServlet {
 			}
 	}
 
-	
+
 	protected void doGetById(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-	
+
+
 		int id = Integer.parseInt(request.getParameter("id"));
 		String nombre = request.getParameter("nombre");
 
@@ -152,24 +135,29 @@ public class ProductoServlet extends HttpServlet {
 
 			productoDao = new ProductoDao();
 
-			System.out.println("Get ONe");
-
 			producto = productoDao.getById(id);
 
+			json = gson.toJson(producto);
+
+			response.setContentType("application/json");
+
+			response.getWriter().println(json);
+
 			System.out.println(producto.toString());
+
 
 		} catch (SQLException e) {
 
 			e.printStackTrace();
-		
-		};
+
+		}
 	}
 
-	
+
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-	
+
 		response.setContentType("application/json");
 
 		Producto producto;
@@ -201,7 +189,7 @@ public class ProductoServlet extends HttpServlet {
 			response.getWriter().append("Producto creado");
 
 		} catch(IOException e) {
-			
+
 			response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
 		}
 	}
@@ -222,8 +210,8 @@ public class ProductoServlet extends HttpServlet {
 			JsonObject json = gson.fromJson(reader, JsonObject.class);
 
 			// Obtiene las claves y los valores
-			
-			int id_producto = json.get("id_producto").getAsInt();		
+
+			int id_producto = json.get("id_producto").getAsInt();
 			String nombre = json.get("nombre").getAsString();
 			double precio = json.get("precio").getAsDouble();
 			String categoria = json.get("categoria").getAsString();
@@ -231,7 +219,7 @@ public class ProductoServlet extends HttpServlet {
 			String foto = json.get("foto").getAsString();
 			int stock = json.get("stock").getAsInt();
 			int id_proveedor = json.get("id_proveedor").getAsInt();
-			
+
 			//Nuevos datos  para actualizar
 			productoUpdated = new Producto(id_producto,nombre,precio, categoria,  descripcion,foto,stock, id_proveedor );
 
@@ -242,39 +230,43 @@ public class ProductoServlet extends HttpServlet {
 			System.out.println(productoUpdated.toString());
 
 			// Respuesta de control
-			response.getWriter().append("Producto creado");
-			
+			response.getWriter().append("Producto actualizado");
+
 		}catch(IOException | SQLException e) {
-			
+
 			response.sendError(HttpServletResponse.SC_EXPECTATION_FAILED);
 		}
-		
+
 	}
 
-	  @Override protected void doDelete(HttpServletRequest request,HttpServletResponse response) 
+	  @Override protected void doDelete(HttpServletRequest request,HttpServletResponse response)
 			  throws ServletException, IOException { String
-	 
-		  pathInfo = request.getPathInfo(); 
-			  
-			  if (pathInfo != null && !pathInfo.equals("/")) { 
-				  
+
+		  pathInfo = request.getPathInfo();
+
+			  if (pathInfo != null && !pathInfo.equals("/")) {
+
 				  // Delete an existing producto by ID String[]
-				  
+
 				  int id = Integer.parseInt(request.getParameter("id"));
-	  
+
 				  try {
-					  
+
 					  response.getWriter().append("Producto: " + id + " deleted");
 					  //productoDao.delete(id);
 				  }
 				  catch (Exception e) {
-					  
-					  response.sendError(HttpServletResponse.SC_NOT_FOUND); 
+
+					  response.sendError(HttpServletResponse.SC_NOT_FOUND);
 				}
 			  }
 	  }
-	  
-	  
 
+
+	    @Override
+	    public void destroy() {
+
+	    	System.out.println("Producto Servlet Destroyed");
+	    }
 
 }

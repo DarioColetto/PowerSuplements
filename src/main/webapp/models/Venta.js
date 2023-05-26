@@ -3,10 +3,22 @@
  * @class
  */
 class Venta {
+  /**
+   * @type {number}
+   */
   id_cliente;
+  /**
+   * @type {Date}
+   */
   fecha;
+  /**
+   * @type {string}
+   */
   forma_pago;
-  detalle = [];
+  /**
+   * @type {Array<DetalleRow>}
+   */
+  detalle;
 }
 
 /**
@@ -14,9 +26,21 @@ class Venta {
  * @class
  */
 class DetalleRow {
+  /**
+   * @type {number}
+   */
   id_producto;
+  /**
+   * @type {number}
+   */
   precio_unitario;
+  /**
+   * @type {number}
+   */
   cantidad;
+  /**
+   * @type {number}
+   */
   subtotal;
 }
 

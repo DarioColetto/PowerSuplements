@@ -1,8 +1,8 @@
-import { clientes } from "../../datos_prueba.js";
 import { TableComponent } from "../table-component.js";
 import { ModalComponent } from "../modal-component.js";
-import { AltaClienteComponent } from "./alta-cliente-component.js";
+import { ClienteService } from "../../services/cliente-service.js";
 import { UpdateClienteComponent } from "./update-cliente-component.js";
+import {AltaClienteComponent} from "./alta-cliente-component.js";
 
 /**
  * Represents the component for display clients.
@@ -10,55 +10,62 @@ import { UpdateClienteComponent } from "./update-cliente-component.js";
  * @extends HTMLElement
  */
 export class ClienteComponent extends HTMLElement {
+
   constructor() {
     super();
-    this.innerHTML = "<h1>Cliente Component</h1>";
+    this.clientes = [];
   }
 
-  connectedCallback() {
-    // Create Button
+  async connectedCallback() {
+    console.log("Proveedores Component");
+    this.innerHTML = "<h1>Clientes</h1>";
+
+    this.renderCrearButton();
+
+    try {
+      this.clientes = await ClienteService.getAll();
+      this.renderTable();
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
+
+  renderCrearButton() {
     const crearButton = document.createElement("button");
     crearButton.className = "create-button";
-    this.appendChild(crearButton);
-
+    
     /**
      * Event listener for the create button click event.
      * Opens a modal window with the form for creating a new client.
      * @event crearButton#click
      */
-    crearButton.addEventListener("click", () => {
-      let form = new AltaClienteComponent();
-      const modal = this.openModal();
-      modal.content.appendChild(form);
-    });
+    crearButton.addEventListener("click", () => this.openAltaModal());
+    this.appendChild(crearButton);
+  }
 
-    // Table Component
+  renderTable() {
     const table = new TableComponent();
-    const tags = ["#", "nombre", "telefono", "direccion", "email"];
-    table.setHeaders(tags);
-    table.insertData(clientes);
+    const headers = ["#", "nombre", "telefono", "direccion", "email"];
+    table.setHeaders(headers);
+    table.insertData(this.clientes);
+    this.addEventListeners(table);
+    this.appendChild(table);
+  }
 
-    // Edit Buttons
+  addEventListeners(table) {
+    const editButtons = table.querySelectorAll(".edit-button");
+    const deleteButtons = table.querySelectorAll(".delete-button");
+    
     /**
      * Event listener for the click event on edit buttons.
      * Retrieves the index of the clicked button and opens a modal window with the form for updating the corresponding client.
      * @event btn#click
      * @param {Event} event - The click event.
      */
-    table.editButtons.forEach((btn) => {
-      btn.addEventListener("click", (event) => {
-        let button = event.target;
-        let index = button.getAttribute("value");
-        index = parseInt(index);
-        const data = clientes[index];
-
-        let form = new UpdateClienteComponent(data);
-        const modal = this.openModal();
-        modal.content.appendChild(form);
-      });
+    editButtons.forEach((button) => {
+      button.addEventListener("click", (event) => this.openUpdateModal(event));
     });
 
-    // Delete Buttons
     /**
      * Event listener for the click event on delete buttons.
      * Retrieves the index of the clicked button, prompts for confirmation to delete the corresponding client,
@@ -66,34 +73,47 @@ export class ClienteComponent extends HTMLElement {
      * @event btn#click
      * @param {Event} event - The click event.
      */
-    table.deleteButtons.forEach((btn) => {
-      btn.addEventListener("click", (event) => {
-        let button = event.target;
-        let index = button.getAttribute("value");
-        index = parseInt(index);
-        const data = clientes[index];
-        let confirmation = confirm(`Desea eliminar cliente : ${data.nombre}`);
-
-        if (confirmation) {
-          console.log("data' deleted");
-        } else {
-          console.log("canceled");
-        }
-      });
+    deleteButtons.forEach((button) => {
+      button.addEventListener("click", (event) => this.confirmDelete(event));
     });
+  }
+  openAltaModal() {
+    const form = new AltaClienteComponent();
+    const modal = this.renderModal();
+    modal.content.appendChild(form);
+  }
 
-    this.appendChild(table);
+  openUpdateModal(event) {
+    const button = event.target;
+    const index = parseInt(button.getAttribute("value"));
+    const data = this.clientes[index];
+    const form = new UpdateClienteComponent(data);
+    const modal = this.renderModal();
+    modal.content.appendChild(form);
+    
+  }
+
+  confirmDelete(event) {
+    const button = event.target;
+    const index = parseInt(button.getAttribute("value"));
+    const data = this.clientes[index];
+    const confirmation = confirm(`Desea eliminar producto: ${data.nombre}`);
+
+    if (confirmation) {
+      console.log("Data deleted");
+    } else {
+      console.log("Canceled");
+    }
   }
 
   /**
    * Opens a modal window.
    * @returns {ModalComponent} The modal window component.
    */
-  openModal() {
+  renderModal() {
     const modal = new ModalComponent();
     modal.style.display = "block";
     this.appendChild(modal);
-
     /**
      * Event listener for closing the modal window when clicking outside.
      * @event window#click

@@ -1,4 +1,5 @@
 import { Cliente } from "../../models/Cliente.js";
+import { ClienteService } from "../../services/cliente-service.js";
 import { FormGroupComponent } from "../form-group-component.js";
 
 /**
@@ -6,8 +7,12 @@ import { FormGroupComponent } from "../form-group-component.js";
  * @class
  */
 export class UpdateClienteComponent extends HTMLElement {
-  cliente = new Cliente();
-
+ 
+ 
+  /**
+   * 
+   * @param {Cliente} cliente 
+   */
   constructor(cliente) {
     super();
     this.innerHTML = "<h1>Update Cliente</div>";
@@ -15,124 +20,92 @@ export class UpdateClienteComponent extends HTMLElement {
   }
 
   connectedCallback() {
-    //Form
+    this.renderForm();
+    this.setupFormSubmitListener();
+  }
+
+  renderForm() {
     const form = document.createElement("form");
     form.className = "form";
     this.appendChild(form);
 
-    //Fielset
     const fieldset = document.createElement("fieldset");
     fieldset.className = "fieldset";
     form.appendChild(fieldset);
 
-    //Name
-    const nombreGroup = new FormGroupComponent();
-    nombreGroup.label.setAttribute("for", "nombre");
-    nombreGroup.label.innerHTML = "Nombre: ";
-    nombreGroup.input.setAttribute("type", "text");
-    nombreGroup.input.id = "input-nombre";
-    nombreGroup.input.setAttribute("name", "nombre");
-    nombreGroup.input.setAttribute("placeholder", this.cliente.nombre);
-    nombreGroup.input.classList.add("required");
-    fieldset.appendChild(nombreGroup);
+    this.renderFormGroup(fieldset, "nombre", "Nombre: ", this.cliente.nombre);
+    this.renderFormGroup(fieldset, "telefono", "Telefono: ", this.cliente.telefono);
+    this.renderFormGroup(fieldset, "direccion", "Direccion: ", this.cliente.direccion);
+    this.renderFormGroup(fieldset, "email", "Email: ", this.cliente.email);
 
-    //telefono
-    const telefonoGroup = new FormGroupComponent();
-    telefonoGroup.label.setAttribute("for", "telefono");
-    telefonoGroup.label.innerHTML = "Telefono: ";
-    telefonoGroup.input.setAttribute("type", "text");
-    telefonoGroup.input.id = "input-telefono";
-    telefonoGroup.input.setAttribute("name", "telefono");
-    telefonoGroup.input.setAttribute("placeholder", this.cliente.telefono);
-    telefonoGroup.input.classList.add("required");
-    fieldset.appendChild(telefonoGroup);
-
-    //direccion
-    const direccionGroup = new FormGroupComponent();
-    direccionGroup.label.setAttribute("for", "direccion");
-    direccionGroup.label.innerHTML = "Direccion: ";
-    direccionGroup.input.setAttribute("type", "text");
-    direccionGroup.input.id = "input-direccion";
-    direccionGroup.input.setAttribute("name", "direccion");
-    direccionGroup.input.setAttribute("placeholder", this.cliente.direccion);
-    direccionGroup.input.classList.add("required");
-    fieldset.appendChild(direccionGroup);
-
-    //email
-    const emailGroup = new FormGroupComponent();
-    emailGroup.label.setAttribute("for", "email");
-    emailGroup.label.innerHTML = "Direccion: ";
-    emailGroup.input.setAttribute("type", "text");
-    emailGroup.input.id = "input-email";
-    emailGroup.input.setAttribute("name", "email");
-    emailGroup.input.setAttribute("placeholder", this.cliente.email);
-    emailGroup.input.classList.add("required");
-    fieldset.appendChild(emailGroup);
-
-    //Box form Buttons
     const buttonBox = document.createElement("div");
     buttonBox.className = "button-box";
     fieldset.appendChild(buttonBox);
-    //Submit Button
+
     const submitButton = document.createElement("button");
     submitButton.classList = "submitButton";
     submitButton.setAttribute("type", "button");
     submitButton.innerHTML = "Enviar";
     buttonBox.appendChild(submitButton);
-    //Cancel Button
+
     const cancelButton = document.createElement("button");
     cancelButton.classList = "cancelButton";
     cancelButton.setAttribute("type", "reset");
     cancelButton.innerHTML = "Cancel";
     buttonBox.appendChild(cancelButton);
+  }
 
+  renderFormGroup(container, id, label, placeholder) {
+    const group = new FormGroupComponent();
+    group.label.setAttribute("for", id);
+    group.label.innerHTML = label;
+    group.input.setAttribute("type", "text");
+    group.input.id = "input-" + id;
+    group.input.setAttribute("name", id);
+    group.input.setAttribute("placeholder", placeholder);
+    group.input.classList.add("required");
+    container.appendChild(group);
+  }
+
+  setupFormSubmitListener() {
+    const submitButton = this.querySelector(".submitButton");
     submitButton.addEventListener("click", () => {
-      let cliente = new Cliente();
-
-      cliente.nombre = form.elements.namedItem("nombre").value;
-      cliente.telefono = form.elements.namedItem("telefono").value;
-      cliente.direccion = form.elements.namedItem("direccion").value;
-      cliente.email = form.elements.namedItem("email").value;
-
-      console.log(cliente);
+      this.validateForm();
     });
+  }
 
-    /*
-    // Function to validate the form on submit
-    validateForm(event) {
+  validateForm() {
+    const fullNameRegex = /^[a-zA-Z ]{2,30}$/;
+    const addressRegex = /^[a-zA-Z\dñ\s]{5,50}$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneNumberRegex = /^\d{9}$/;
 
-      event.preventDefault();
+    const fullName = this.getInputValue("nombre");
+    const phoneNumber = this.getInputValue("telefono");
+    const address = this.getInputValue("direccion");
+    const email = this.getInputValue("email");
 
-      // Regular expressions for validation
-      const fullNameRegex = /^[a-zA-Z ]{2,30}$/;
-      const adressRegex = /^[a-zA-Z\dñ\s]{5,50}$/;
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      const phoneNumberRegex = /^\d{9}$/;
+    const isFullNameValid = fullNameRegex.test(fullName);
+    const isAddressValid = addressRegex.test(address);
+    const isEmailValid = emailRegex.test(email);
+    const isPhoneNumberValid = phoneNumberRegex.test(phoneNumber);
 
-      const fullName = document.getElementById("full-name").value.trim();
-      const phoneNumber = document.getElementById("phone-number").value.trim();
-      const adress = document.getElementById("adress").value.trim();
-      const email = document.getElementById("email").value.trim();
+    if (isFullNameValid && isAddressValid && isEmailValid && isPhoneNumberValid) {
+      
+      const updatedCliente = new Cliente(fullName, phoneNumber, address, email);
 
-      const isFullNameValid = fullNameRegex.test(fullName);
-      const isAdressValid = adressRegex.test(adress);
-      const isEmailValid = emailRegex.test(email)
-      const isPhoneNumberValid = phoneNumberRegex.test(phoneNumber);
+      ClienteService.update(updatedCliente, this.cliente.id_cliente);
 
+      alert("Form submitted successfully!");
+      console.log(updatedCliente );
+    } else {
+      alert("Please fix the errors in the form before submitting.");
+    }
+  }
 
-      // Check if all input fields are valid
-      if (isFullNameValid && isAdressValid && isEmailValid && isPhoneNumberValid) {
-
-        //Create clietne and submit
-        let cliente = new Cliente('', fullName, phoneNumber, adress, email);
-
-
-        alert("Form submitted successfully!");
-      } else {
-        alert("Please fix the errors in the form before submitting.");
-      }
-
-    }*/
+  getInputValue(inputName) {
+    const input = this.querySelector(`[name="${inputName}"]`);
+    return input.value.trim();
   }
 }
 

@@ -1,146 +1,142 @@
 import { FormGroupComponent } from "../form-group-component.js";
 import { Producto } from "../../models/Producto.js";
+import { ProveedorService } from "../../services/proveedor-service.js";
 
 export class AltaProductoComponent extends HTMLElement {
+  
 
-    constructor() {
+  constructor() {
+    super();
+    this.innerHTML = "<h1>Alta producto</h1>";
+  }
 
-        super();
-        this.innerHTML = '<h1>Alta producto</div>';
+  async connectedCallback() {
+    this.renderForm();
+    await this.loadProveedores();
+    this.setupFormSubmitListener();
+  }
 
+  async loadProveedores() {
+    try {
+      this.proveedores = await ProveedorService.getAll();
+    } catch (error) {
+      console.error("Error loading proveedores", error);
     }
+  }
 
-    connectedCallback() {
+  renderForm() {
+    const form = document.createElement("form");
+    form.className = "form";
+    this.appendChild(form);
 
-        //Form
-        const form = document.createElement('form')
-        form.className = 'form';
-        this.appendChild(form);
+    const fieldset = document.createElement("fieldset");
+    fieldset.className = "fieldset";
+    form.appendChild(fieldset);
 
-        //Fielset
-        const fieldset = document.createElement('fieldset')
-        fieldset.className = 'fieldset';
-        form.appendChild(fieldset);
+    this.renderFormGroup(fieldset, "nombre", "Nombre: ", "Insert Name");
+    this.renderFormGroup(fieldset, "precio", "Precio: ", "Insert Price");
+    this.renderSelectOptions(fieldset, "categoria", [
+      "Proteinas",
+      "Aminoacidos",
+      "Enerizantes",
+      "Vitaminas",
+      "Acidos grasos",
+      "Carbohidratos",
+      "Cereal Bar",
+    ]);
 
-        //Name 
+    this.renderTextareaFormGroup(
+      fieldset,
+      "descripcion",
+      "Descripcion: ",
+      "Inserte Descripcion"
+    );
 
-        const nombreGroup = new FormGroupComponent();
-        nombreGroup.label.setAttribute('for', 'nombre');
-        nombreGroup.label.innerHTML = 'Nombre: ';
-        nombreGroup.input.setAttribute('type', 'text');
-        nombreGroup.input.id = 'input-nombre';
-        nombreGroup.input.setAttribute('name', 'nombre');
-        nombreGroup.input.setAttribute('placeholder', 'Insert Name');
-        nombreGroup.input.classList.add('required');
-        fieldset.appendChild(nombreGroup);
+    this.renderSelectOptions(
+      fieldset,
+      "proveedor",
+      this.proveedores,
+      "id_proveedor",
+      "nombre"
+    );
+    this.renderFormGroup(fieldset, "foto", "Foto: ", "Insert foto url");
 
-        //Price
-        const precioGroup = new FormGroupComponent();
-        precioGroup.label.setAttribute('for', 'precio');
-        precioGroup.label.innerHTML = 'Precio: ';
-        precioGroup.input.setAttribute('type', 'text');
-        precioGroup.input.id = 'precio';
-        precioGroup.input.setAttribute('name', 'precio');
-        precioGroup.input.setAttribute('placeholder', 'Insert Price');
-        precioGroup.input.classList.add('required');
-        fieldset.appendChild(precioGroup);
+    const buttonBox = document.createElement("div");
+    buttonBox.className = "button-box";
+    fieldset.appendChild(buttonBox);
 
-        //Categoria
-        const categorias = ['Whey', 'Vitaminas', 'BCASS', 'Barritas']
-        const selectCategoria = document.createElement('select')
-        selectCategoria.setAttribute('name', 'categoria')
+    const submitButton = document.createElement("button");
+    submitButton.classList = "submitButton";
+    submitButton.setAttribute("type", "button");
+    submitButton.innerHTML = "Enviar";
+    buttonBox.appendChild(submitButton);
 
+    const cancelButton = document.createElement("button");
+    cancelButton.classList = "cancelButton";
+    cancelButton.setAttribute("type", "reset");
+    cancelButton.innerHTML = "Cancel";
+    buttonBox.appendChild(cancelButton);
+  }
 
-        for (let categoria of categorias) {
+  renderFormGroup(container, id, label, placeholder) {
+    const group = new FormGroupComponent();
+    group.label.setAttribute("for", id);
+    group.label.innerHTML = label;
+    group.input.setAttribute("type", "text");
+    group.input.id = "input-" + id;
+    group.input.setAttribute("name", id);
+    group.input.setAttribute("placeholder", placeholder);
+    group.input.classList.add("required");
+    container.appendChild(group);
+  }
 
-            const option = document.createElement('option')
-            option.value = categoria;
-            option.innerHTML = categoria
-            selectCategoria.appendChild(option)
-        }
+  renderTextareaFormGroup(container, id, label, placeholder) {
+    const group = document.createElement("div");
+    group.className = "form-group";
 
-        fieldset.appendChild(selectCategoria);
+    const groupLabel = document.createElement("label");
+    groupLabel.setAttribute("for", id);
+    groupLabel.innerHTML = label;
+    group.appendChild(groupLabel);
 
-        //Description
-        const descripcionGroup = document.createElement('div')
-        descripcionGroup.className = 'form-group'
+    const textarea = document.createElement("textarea");
+    textarea.id = id;
+    textarea.setAttribute("name", id);
+    textarea.setAttribute("rows", "3");
+    textarea.innerHTML = placeholder;
+    group.appendChild(textarea);
 
-        const descripcionLabel = document.createElement('label');
-        descripcionLabel.setAttribute('for', 'descripcion');
-        descripcionGroup.appendChild(descripcionLabel)
+    container.appendChild(group);
+  }
 
-        const descripcionInput = document.createElement('textarea');
-        descripcionInput.id = 'descripcion'
-        descripcionInput.setAttribute('name', 'descripcion')
-        descripcionInput.setAttribute('rows', '3')
-        descripcionInput.innerHTML = 'Inserte Descripcion'
-        descripcionGroup.appendChild(descripcionInput)
-
-        fieldset.appendChild(descripcionGroup);
-
-        //Proveedores
-
-        const proveedores = ['PowerX', 'Workout3000', 'TodoBCA', 'BarDelicius']
-        const selectProveedores = document.createElement('select')
-        selectProveedores.setAttribute('name', 'proveedor')
-        fieldset.appendChild(selectProveedores);
-
-        for (let categoria of proveedores) {
-
-            const option = document.createElement('option')
-            option.value = categoria;
-            option.innerHTML = categoria
-            selectProveedores.appendChild(option)
-        }
-
-
-
-        //Foto Link
-        const fotoGroup = new FormGroupComponent();
-        fotoGroup.label.setAttribute('for', 'foto');
-        fotoGroup.label.innerHTML = 'Foto: ';
-        fotoGroup.input.setAttribute('type', 'text');
-        fotoGroup.input.id = 'foto';
-        fotoGroup.input.setAttribute('name', 'foto');
-        fotoGroup.input.setAttribute('placeholder', 'insert foto url');
-        fotoGroup.input.classList.add('required');
-        fieldset.appendChild(fotoGroup);
-
-        const buttonBox = document.createElement('div');
-        buttonBox.className = 'button-box';
-        fieldset.appendChild(buttonBox);
-
-        const submitButton = document.createElement('button');
-        submitButton.classList = 'submitButton';
-        submitButton.setAttribute('type', 'button')
-        submitButton.innerHTML = 'Enviar';
-        buttonBox.appendChild(submitButton)
-
-        const cancelButton = document.createElement('button')
-        cancelButton.classList = 'cancelButton';
-        cancelButton.setAttribute('type', 'reset')
-        cancelButton.innerHTML = 'Cancel';
-        buttonBox.appendChild(cancelButton)
-
-
-        submitButton.addEventListener('click', () => {
-
-            let producto = new Producto();
-
-            producto.nombre = form.elements.namedItem("nombre").value;
-            producto.precio = form.elements.namedItem("precio").value;
-            producto.categoria = form.elements.namedItem("precio").value;
-            producto.descripcion = form.elements.namedItem("descripcion").value;
-            producto.proveedor = form.elements.namedItem("proveedor").value;
-
-
-            console.log(producto)
-
-        })
-
+  renderSelectOptions(container, id, options, valueProp = "", textProp = "") {
+    const select = document.createElement("select");
+    select.setAttribute("name", id);
+    container.appendChild(select);
+    
+    for (let option of options) {
+      const optionElement = document.createElement("option");
+      optionElement.value = valueProp ? option[valueProp] : option;
+      optionElement.innerHTML = textProp ? option[textProp] : option;
+      select.appendChild(optionElement);
     }
+  }
+
+  setupFormSubmitListener() {
+    const submitButton = this.querySelector(".submitButton");
+    submitButton.addEventListener("click", async () => {
+      const form = this.querySelector("form");
+      const producto = new Producto();
+
+      producto.nombre = form.elements.namedItem("nombre").value;
+      producto.precio = form.elements.namedItem("precio").value;
+      producto.categoria = form.elements.namedItem("categoria").value;
+      producto.descripcion = form.elements.namedItem("descripcion").value;
+      producto.id_proveedor = form.elements.namedItem("proveedor").value;
+
+      console.log(producto);
+    });
+  }
 }
 
-
-
-customElements.define('alta-producto', AltaProductoComponent);
+customElements.define("alta-producto", AltaProductoComponent);

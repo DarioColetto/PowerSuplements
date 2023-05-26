@@ -1,16 +1,16 @@
 input:invalid {
-  border-color: #dc3545;
+	border-color: #dc3545;
 }
 
 input:valid {
-  border-color: #28a745;
+	border-color: #28a745;
 }
 
 .invalid-feedback {
-  display: none;
-  color: #dc3545;
+	display: none;
+	color: #dc3545;
 }
 
-input:invalid + .invalid-feedback {
-  display: block;
+input:invalid+.invalid-feedback {
+	display: block;
 }

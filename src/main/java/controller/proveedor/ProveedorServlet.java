@@ -19,7 +19,7 @@ import model.Proveedor;
 /**
  * Servlet implementation class Proveedor
  */
-@WebServlet(name = "ProveedorServlet", description = "", urlPatterns = "/proveedores/*"
+@WebServlet(name = "ProveedorServlet", description = "", urlPatterns = {"/proveedores/*"}
 
 )
 public class ProveedorServlet extends HttpServlet {
@@ -27,27 +27,21 @@ public class ProveedorServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private Gson gson;
-	String json;
-	ProveedorDao proveedorDao;
+	private String json;
+	private ProveedorDao proveedorDao;
 
 	@Override
 	public void init() throws ServletException {
 
+		System.out.println("ServletProvedor initialized");
 		gson = new Gson();
-		try {
-
-			proveedorDao = new ProveedorDao();
-
-		} catch (SQLException e) {
-
-			e.printStackTrace();
-		}
 	}
 
 	/**
 	 * Refers to the corresponding method of the servlet: doGet, doPost, doPut,
 	 * doDelete, according to the method of the request
 	 */
+	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -60,29 +54,34 @@ public class ProveedorServlet extends HttpServlet {
 
 		if (method.equals("GET") && (pathInfo == null || pathInfo.equals("/"))) {
 
+			System.out.println(method);
 			doGet(request, response);
 
 		}
 
 		else if (method.equals("GET") && (pathInfo == null || pathInfo.equals("/getbyid"))) {
 
+			System.out.println(method);
 			doGetById(request, response);
 		}
 
 		else if (method.equals("POST") && (pathInfo == null || pathInfo.equals("/"))) {
 
+			System.out.println(method);
 			doPost(request, response);
 
 		}
 
 		else if (method.equals("PUT") && (pathInfo == null || pathInfo.equals("/"))) {
 
+			System.out.println(method);
 			doPut(request, response);
 
 		}
 
 		else if (method.equals("DELETE") && (pathInfo == null || pathInfo.equals("/"))) {
 
+			System.out.println(method);
 			doDelete(request, response);
 
 		} else {
@@ -99,9 +98,11 @@ public class ProveedorServlet extends HttpServlet {
 
 		try {
 
+			proveedorDao = new ProveedorDao();
+
 			List<Proveedor> proveedores = proveedorDao.getAll();
 
-			System.out.println(proveedores);
+			//System.out.println(proveedores);
 
 			json = gson.toJson(proveedores);
 
@@ -110,9 +111,6 @@ public class ProveedorServlet extends HttpServlet {
 			response.setContentType("application/json");
 			response.getWriter().println(json);
 
-			// request.setAttribute("proveedores", proveedores);
-			// request.getRequestDispatcher("/WEB-INF/views/proveedores.jsp").forward(request,
-			// response);
 
 		} catch (SQLException e) {
 
@@ -138,6 +136,10 @@ public class ProveedorServlet extends HttpServlet {
 
 			proveedor = proveedorDao.getById(id);
 
+			json = gson.toJson(proveedor);
+
+			response.getWriter().println(json);
+
 			System.out.println(proveedor.toString());
 
 		} catch (SQLException e) {
@@ -145,7 +147,6 @@ public class ProveedorServlet extends HttpServlet {
 			e.printStackTrace();
 
 		}
-		;
 	}
 
 	@Override
@@ -200,7 +201,7 @@ public class ProveedorServlet extends HttpServlet {
 			JsonObject json = gson.fromJson(reader, JsonObject.class);
 
 			// Obtiene los claves y los valores
-			int id_proveedor = Integer.parseInt(request.getParameter("id"));	
+			int id_proveedor = Integer.parseInt(request.getParameter("id"));
 			String nombre = json.get("nombre").getAsString();
 			String telefono = json.get("telefono").getAsString();
 			String direccion = json.get("direccion").getAsString();
@@ -245,5 +246,12 @@ public class ProveedorServlet extends HttpServlet {
 			}
 		}
 	}
+
+
+    @Override
+    public void destroy() {
+
+    	System.out.println("Proveedor Servlet Destroyed");
+    }
 
 }

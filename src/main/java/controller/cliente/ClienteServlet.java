@@ -19,74 +19,72 @@ import model.Cliente;
 /**
  * Servlet implementation class Cliente
  */
-@WebServlet(name = "ClienteServlet", description = "Get all Clientes", urlPatterns = "/clientes/*"
 
+@WebServlet(
+    name = "ClienteServlet",
+    urlPatterns = "/clientes/*"
 )
 public class ClienteServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
 	private Gson gson;
-	String json;
-	ClienteDao clienteDao;
+	private String json;
+	private ClienteDao clienteDao;
 
 	@Override
 	public void init() throws ServletException {
 
+		System.out.println("ClienteServlet Initialized!!!");
+
 		gson = new Gson();
-		try {
 
-			clienteDao = new ClienteDao();
-
-		} catch (SQLException e) {
-
-			e.printStackTrace();
-		}
 	}
 
 	/**
 	 * Refers to the corresponding method of the servlet: doGet, doPost, doPut, doDelete, according to the method of the request
 	 */
-	protected void service(HttpServletRequest request, HttpServletResponse response) 
+	@Override
+	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-   
+
 		String method = request.getMethod();
-		
+
 		String pathInfo = request.getPathInfo();
 
 		// Uncomment to chek pathInfo
 		System.out.println(pathInfo);
-		
+
 		if (method.equals("GET") && (pathInfo == null || pathInfo.equals("/") )){
-				
+
 				doGet(request, response);
-				
+
 		}
-		
+
 		else if(method.equals("GET") && (pathInfo == null || pathInfo.equals("/getbyid") )) {
-			
-			doGetById(request, response);			
+
+			doGetById(request, response);
 		}
-		
+
 
 		else if (method.equals("POST") && (pathInfo == null || pathInfo.equals("/") )) {
-			
+
 			doPost(request, response);
-			
-		} 
-		
-		else if (method.equals("PUT") && (pathInfo == null || pathInfo.equals("/") )) {
-			
-			doPut(request, response);
-			
+
 		}
-		
+
+		else if (method.equals("PUT") && (pathInfo == null || pathInfo.equals("/") )) {
+
+			doPut(request, response);
+
+		}
+
 		else if (method.equals("DELETE") && (pathInfo == null || pathInfo.equals("/") )) {
-				
+
 				doDelete(request, response);
-			
+
 	   } else {
-	    // Servlet doesn't currently support 
+	    // Servlet doesn't currently support
 	    // other types of request.
 	    String errMsg = "Method Not Supported";
 	    response.sendError(HttpServletResponse.SC_NOT_IMPLEMENTED, errMsg);
@@ -99,6 +97,8 @@ public class ClienteServlet extends HttpServlet {
 
 
 			try {
+				
+				clienteDao = new ClienteDao();
 
 				List<Cliente> clientes = clienteDao.getAll();
 
@@ -111,9 +111,7 @@ public class ClienteServlet extends HttpServlet {
 				response.setContentType("application/json");
 				response.getWriter().println(json);
 
-				// request.setAttribute("clientes", clientes);
-				// request.getRequestDispatcher("/WEB-INF/views/clientes.jsp").forward(request,
-				// response);
+
 
 			} catch (SQLException e) {
 
@@ -121,11 +119,11 @@ public class ClienteServlet extends HttpServlet {
 			}
 	}
 
-	
+
 	protected void doGetById(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-	
+
+
 		int id = Integer.parseInt(request.getParameter("id"));
 		String nombre = request.getParameter("nombre");
 
@@ -146,15 +144,15 @@ public class ClienteServlet extends HttpServlet {
 		} catch (SQLException e) {
 
 			e.printStackTrace();
-		
-		};
+
+		}
 	}
 
-	
+
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-	
+
 		response.setContentType("application/json");
 
 		Cliente cliente;
@@ -183,7 +181,7 @@ public class ClienteServlet extends HttpServlet {
 			response.getWriter().append("Cliente creado");
 
 		} catch(IOException e) {
-			
+
 			response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
 		}
 	}
@@ -210,11 +208,11 @@ public class ClienteServlet extends HttpServlet {
 			String direccion = json.get("direccion").getAsString();
 			String email = json.get("email").getAsString();
 
-			
+
 			clienteUpdated = new Cliente(id_cliente, nombre, telefono, direccion, email);
 
 			// TODO agregar el dao
-			
+
 			clienteDao.update(clienteUpdated);
 
 			// Control de salida por consola de los valores obtenidos
@@ -222,33 +220,34 @@ public class ClienteServlet extends HttpServlet {
 
 			// Respuesta de control
 			response.getWriter().append("Cliente creado");
-			
+
 		}catch(IOException | SQLException e) {
-			
+
 			response.sendError(HttpServletResponse.SC_EXPECTATION_FAILED);
 		}
-		
+
 	}
 
-	  @Override protected void doDelete(HttpServletRequest request,HttpServletResponse response) 
+	  @Override
+	  protected void doDelete(HttpServletRequest request,HttpServletResponse response)
 			  throws ServletException, IOException { String
-	 
-		  pathInfo = request.getPathInfo(); 
-			  
-			  if (pathInfo != null && !pathInfo.equals("/")) { 
-				  
+
+		  pathInfo = request.getPathInfo();
+
+			  if (pathInfo != null && !pathInfo.equals("/")) {
+
 				  // Delete an existing cliente by ID String[]
-				  
+
 				  int id = Integer.parseInt(request.getParameter("id"));
-	  
+
 				  try {
-					  
+
 					  response.getWriter().append("Cliente: " + id + " deleted");
 					  //clienteDao.delete(id);
 				  }
 				  catch (Exception e) {
-					  
-					  response.sendError(HttpServletResponse.SC_NOT_FOUND); 
+
+					  response.sendError(HttpServletResponse.SC_NOT_FOUND);
 				}
 			  }
 	  }
